@@ -1,0 +1,57 @@
+{
+  "@@locale": "en",
+
+  "appTitle": "Flutter Boilerplate",
+  "@appTitle": {"description": "Application title shown in the OS task switcher"},
+
+  "navHome": "Home",
+  "navAccount": "Account",
+  "navSettings": "Settings",
+
+  "homeTitle": "Home",
+  "homeWelcomeTitle": "Welcome",
+  "homeWelcomeMessage": "This is a placeholder feature. Replace it with your first real screen.",
+
+  "accountTitle": "Account",
+  "accountFieldName": "Name",
+  "accountFieldEmail": "Email",
+  "accountMemberSince": "Member since {date}",
+  "@accountMemberSince": {
+    "description": "Shown on the profile page",
+    "placeholders": {"date": {"type": "String"}}
+  },
+  "accountEditProfile": "Edit profile",
+  "accountChangePhoto": "Change photo",
+  "accountSave": "Save",
+  "accountCancel": "Cancel",
+  "accountUpdateSuccess": "Profile updated",
+  "accountEmptyTitle": "No profile yet",
+  "accountEmptyMessage": "Create your profile to get started.",
+  "accountCreateProfile": "Create profile",
+
+  "settingsTitle": "Settings",
+  "settingsTheme": "Theme",
+  "settingsThemeSystem": "System",
+  "settingsThemeLight": "Light",
+  "settingsThemeDark": "Dark",
+  "settingsLanguage": "Language",
+  "settingsLanguageEnglish": "English",
+  "settingsLanguageIndonesian": "Indonesian",
+
+  "validationNameRequired": "Name is required",
+  "validationNameTooShort": "Name must be at least {min} characters",
+  "@validationNameTooShort": {
+    "placeholders": {"min": {"type": "int"}}
+  },
+  "validationEmailRequired": "Email is required",
+  "validationEmailInvalid": "Enter a valid email address",
+
+  "errorGenericTitle": "Something went wrong",
+  "errorDatabase": "We couldn't reach local storage. Please try again.",
+  "errorValidation": "Please fix the highlighted fields.",
+  "errorUnexpected": "An unexpected error occurred.",
+  "actionRetry": "Retry",
+  "actionOk": "OK",
+
+  "commonLoading": "Loading…"
+}

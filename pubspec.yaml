@@ -1,0 +1,59 @@
+name: flutter_clean_boilerplate
+description: >
+  Production-ready Flutter boilerplate built on Clean Architecture and a
+  feature-first folder structure. Intended as a long-term foundation for
+  future applications, not a demo app.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+  flutter: '>=3.19.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # --- State management -------------------------------------------------
+  # provider: official Flutter-team-endorsed, minimal ceremony, plays well
+  # with ChangeNotifier-based controllers used across every feature here.
+  provider: ^6.1.2
+
+  # --- Dependency injection ----------------------------------------------
+  # get_it: mature service locator used to compose Database -> DataSource ->
+  # Repository -> UseCase -> Controller once, centrally, in app/di.
+  get_it: ^7.7.0
+
+  # --- Routing -------------------------------------------------------------
+  # go_router: official Flutter-team package, declarative routing with
+  # first-class support for a persistent bottom-nav shell (StatefulShellRoute).
+  go_router: ^14.2.0
+
+  # --- Local database ------------------------------------------------------
+  sembast: ^3.7.2
+  path_provider: ^2.1.3
+  path: ^1.9.0
+
+  # --- Value equality for entities/DTOs ------------------------------------
+  # equatable: removes hand-written ==/hashCode boilerplate on immutable
+  # entities and failures, keeping the domain layer small and honest.
+  equatable: ^2.0.5
+
+  # --- Identifiers ----------------------------------------------------------
+  uuid: ^4.4.2
+
+  # --- Localization ----------------------------------------------------------
+  intl: ^0.20.2
+
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  generate: true # enables Flutter's built-in ARB -> Dart l10n code generation

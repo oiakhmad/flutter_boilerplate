@@ -1,0 +1,49 @@
+{
+  "@@locale": "id",
+
+  "appTitle": "Flutter Boilerplate",
+
+  "navHome": "Beranda",
+  "navAccount": "Akun",
+  "navSettings": "Pengaturan",
+
+  "homeTitle": "Beranda",
+  "homeWelcomeTitle": "Selamat Datang",
+  "homeWelcomeMessage": "Ini adalah halaman placeholder. Ganti dengan layar pertamamu yang sesungguhnya.",
+
+  "accountTitle": "Akun",
+  "accountFieldName": "Nama",
+  "accountFieldEmail": "Email",
+  "accountMemberSince": "Bergabung sejak {date}",
+  "accountEditProfile": "Ubah profil",
+  "accountChangePhoto": "Ganti foto",
+  "accountSave": "Simpan",
+  "accountCancel": "Batal",
+  "accountUpdateSuccess": "Profil berhasil diperbarui",
+  "accountEmptyTitle": "Belum ada profil",
+  "accountEmptyMessage": "Buat profil untuk memulai.",
+  "accountCreateProfile": "Buat profil",
+
+  "settingsTitle": "Pengaturan",
+  "settingsTheme": "Tema",
+  "settingsThemeSystem": "Sistem",
+  "settingsThemeLight": "Terang",
+  "settingsThemeDark": "Gelap",
+  "settingsLanguage": "Bahasa",
+  "settingsLanguageEnglish": "Inggris",
+  "settingsLanguageIndonesian": "Indonesia",
+
+  "validationNameRequired": "Nama wajib diisi",
+  "validationNameTooShort": "Nama minimal {min} karakter",
+  "validationEmailRequired": "Email wajib diisi",
+  "validationEmailInvalid": "Masukkan alamat email yang valid",
+
+  "errorGenericTitle": "Terjadi kesalahan",
+  "errorDatabase": "Tidak dapat mengakses penyimpanan lokal. Silakan coba lagi.",
+  "errorValidation": "Mohon perbaiki kolom yang ditandai.",
+  "errorUnexpected": "Terjadi kesalahan tak terduga.",
+  "actionRetry": "Coba lagi",
+  "actionOk": "OK",
+
+  "commonLoading": "Memuat…"
+}
