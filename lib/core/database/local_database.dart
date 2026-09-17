@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter_clean_boilerplate/core/database/database_exception.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
-import 'package:sembast/sembast.dart' hide DatabaseException;
 import 'package:sembast/sembast_io.dart' hide DatabaseException;
 
 /// Owns the single Sembast [Database] instance for the whole app.

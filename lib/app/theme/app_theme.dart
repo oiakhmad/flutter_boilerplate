@@ -33,7 +33,7 @@ abstract final class AppTheme {
           borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
         ),
         filled: true,
-        fillColor: scheme.surfaceContainerHighest.withOpacity(0.4),
+        fillColor: scheme.surfaceContainerHighest.withValues(alpha: 0.4),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.md,
           vertical: AppSpacing.md,

@@ -20,37 +20,47 @@ class SettingsPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
         children: [
           _SectionHeader(title: l10n.settingsTheme),
-          RadioListTile<AppThemeMode>(
-            title: Text(l10n.settingsThemeSystem),
-            value: AppThemeMode.system,
+          RadioGroup<AppThemeMode>(
             groupValue: settings.themeMode,
-            onChanged: (mode) => controller.setThemeMode(mode!),
-          ),
-          RadioListTile<AppThemeMode>(
-            title: Text(l10n.settingsThemeLight),
-            value: AppThemeMode.light,
-            groupValue: settings.themeMode,
-            onChanged: (mode) => controller.setThemeMode(mode!),
-          ),
-          RadioListTile<AppThemeMode>(
-            title: Text(l10n.settingsThemeDark),
-            value: AppThemeMode.dark,
-            groupValue: settings.themeMode,
-            onChanged: (mode) => controller.setThemeMode(mode!),
+            onChanged: (mode) {
+              if (mode != null) controller.setThemeMode(mode);
+            },
+            child: Column(
+              children: [
+                RadioListTile<AppThemeMode>(
+                  title: Text(l10n.settingsThemeSystem),
+                  value: AppThemeMode.system,
+                ),
+                RadioListTile<AppThemeMode>(
+                  title: Text(l10n.settingsThemeLight),
+                  value: AppThemeMode.light,
+                ),
+                RadioListTile<AppThemeMode>(
+                  title: Text(l10n.settingsThemeDark),
+                  value: AppThemeMode.dark,
+                ),
+              ],
+            ),
           ),
           const Divider(height: AppSpacing.xl),
           _SectionHeader(title: l10n.settingsLanguage),
-          RadioListTile<String>(
-            title: Text(l10n.settingsLanguageEnglish),
-            value: 'en',
+          RadioGroup<String>(
             groupValue: settings.languageCode,
-            onChanged: (code) => controller.setLanguageCode(code!),
-          ),
-          RadioListTile<String>(
-            title: Text(l10n.settingsLanguageIndonesian),
-            value: 'id',
-            groupValue: settings.languageCode,
-            onChanged: (code) => controller.setLanguageCode(code!),
+            onChanged: (code) {
+              if (code != null) controller.setLanguageCode(code);
+            },
+            child: Column(
+              children: [
+                RadioListTile<String>(
+                  title: Text(l10n.settingsLanguageEnglish),
+                  value: 'en',
+                ),
+                RadioListTile<String>(
+                  title: Text(l10n.settingsLanguageIndonesian),
+                  value: 'id',
+                ),
+              ],
+            ),
           ),
         ],
       ),

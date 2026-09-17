@@ -19,30 +19,30 @@ dependencies:
   # --- State management -------------------------------------------------
   # provider: official Flutter-team-endorsed, minimal ceremony, plays well
   # with ChangeNotifier-based controllers used across every feature here.
-  provider: ^6.1.2
+  provider: ^6.1.5+1
 
   # --- Dependency injection ----------------------------------------------
   # get_it: mature service locator used to compose Database -> DataSource ->
   # Repository -> UseCase -> Controller once, centrally, in app/di.
-  get_it: ^7.7.0
+  get_it: ^9.2.1
 
   # --- Routing -------------------------------------------------------------
   # go_router: official Flutter-team package, declarative routing with
   # first-class support for a persistent bottom-nav shell (StatefulShellRoute).
-  go_router: ^14.2.0
+  go_router: ^17.5.0
 
   # --- Local database ------------------------------------------------------
-  sembast: ^3.7.2
-  path_provider: ^2.1.3
-  path: ^1.9.0
+  sembast: ^3.8.10
+  path_provider: ^2.1.6
+  path: ^1.9.1
 
   # --- Value equality for entities/DTOs ------------------------------------
   # equatable: removes hand-written ==/hashCode boilerplate on immutable
   # entities and failures, keeping the domain layer small and honest.
-  equatable: ^2.0.5
+  equatable: ^3.0.0
 
   # --- Identifiers ----------------------------------------------------------
-  uuid: ^4.4.2
+  uuid: ^4.6.0
 
   # --- Localization ----------------------------------------------------------
   intl: ^0.20.2
@@ -52,7 +52,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
+  flutter_lints: ^6.0.0
 
 flutter:
   uses-material-design: true
