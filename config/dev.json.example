@@ -1,0 +1,8 @@
+{
+  "APP_ENV": "dev",
+  "API_BASE_URL": "https://dev.example.com",
+  "APP_NAME": "My App Dev",
+  "DB_NAME": "my_app_dev.db",
+  "ENABLE_LOGGING": true,
+  "API_TIMEOUT_SECONDS": 30
+}

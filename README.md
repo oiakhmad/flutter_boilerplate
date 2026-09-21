@@ -32,9 +32,62 @@ flutter gen-l10n
 flutter analyze
 flutter test
 
-# 5. Run
+# 5. Run (falls back to bundled defaults — APP_ENV=dev)
 flutter run
 ```
+
+## Environments (compile-time configuration)
+
+Environments are plain JSON files applied **at build time** via
+`--dart-define-from-file` — no `.env` loader, no extra package, and no
+runtime file reads:
+
+```bash
+flutter run --dart-define-from-file=config/dev.json
+flutter run --dart-define-from-file=config/staging.json
+flutter run --dart-define-from-file=config/production.json
+```
+
+| Key | Type | Purpose |
+|---|---|---|
+| `APP_ENV` | `String` | Environment name: `dev` / `staging` / `production` |
+| `API_BASE_URL` | `String` | Backend base URL for that environment |
+| `APP_NAME` | `String` | Environment-specific app name (native/display/log use) |
+| `DB_NAME` | `String` | Sembast database file for that environment |
+| `ENABLE_LOGGING` | `bool` | Whether verbose logging is allowed in that build |
+| `API_TIMEOUT_SECONDS` | `int` | Request timeout for that environment |
+
+Each environment opens its **own** Sembast file, so `dev` data can never
+leak into `staging` or `production`:
+
+| Environment | `DB_NAME` |
+|---|---|
+| dev | `my_app_dev.db` |
+| staging | `my_app_staging.db` |
+| production | `my_app_production.db` |
+
+`lib/core/config/app_config.dart` is the **only** file in the app that
+calls `String.fromEnvironment` / `bool.fromEnvironment` /
+`int.fromEnvironment`. Everything else reads the typed values:
+
+```dart
+final dbName = AppConfig.dbName;            // e.g. 'my_app_dev.db'
+final environment = AppConfig.environment;  // AppEnvironment.dev
+final baseUrl = AppConfig.apiBaseUrl;
+final hasLogging = AppConfig.enableLogging;
+```
+
+Rules of the road:
+
+* `config/*.json` is gitignored, so create your local file from the
+  committed twin: `cp config/dev.json.example config/dev.json`.
+* Running without a define file (`flutter run`) still works — the app
+  falls back to the bundled defaults (`APP_ENV=dev` and
+  `AppConstants.databaseFileName`), which is exactly what the code did
+  before environments were introduced.
+* Nothing outside `AppConfig` may branch on the environment; `features/`
+  never asks "am I in dev?".
+* Switching environments is a JSON edit, never a code edit.
 
 ## Architecture overview
 
@@ -66,6 +119,7 @@ lib/
 │   ├── router/      # go_router config + bottom-nav shell
 │   └── theme/       # design tokens (colors, spacing, typography) + ThemeData
 ├── core/            # Cross-feature, feature-agnostic building blocks
+│   ├── config/      # AppConfig — the only reader of --dart-define-from-file
 │   ├── database/    # LocalDatabase (Sembast lifecycle) + DatabaseStore<T>
 │   ├── error/       # Failure hierarchy
 │   ├── result/       # Result<T> success/failure wrapper

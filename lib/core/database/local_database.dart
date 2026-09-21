@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter_clean_boilerplate/core/config/app_config.dart';
 import 'package:flutter_clean_boilerplate/core/database/database_exception.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
@@ -12,8 +13,13 @@ import 'package:sembast/sembast_io.dart' hide DatabaseException;
 ///   its own, so the app never pays the cost of repeated file opens.
 /// - Centralizes the on-disk file name/location, so it is the one place
 ///   that changes if storage location strategy ever changes.
+///
+/// The file name defaults to the active environment's `DB_NAME`
+/// ([AppConfig.dbName]), which is how `dev`, `staging`, and `production`
+/// end up on separate databases without any environment checks in feature
+/// code.
 class LocalDatabase {
-  LocalDatabase({this.fileName = 'app_database.db'});
+  LocalDatabase({this.fileName = AppConfig.dbName});
 
   final String fileName;
 

@@ -1,4 +1,4 @@
-import 'package:flutter_clean_boilerplate/core/constants/app_constants.dart';
+import 'package:flutter_clean_boilerplate/core/config/app_config.dart';
 import 'package:flutter_clean_boilerplate/core/constants/storage_keys.dart';
 import 'package:flutter_clean_boilerplate/core/database/database_store.dart';
 import 'package:flutter_clean_boilerplate/core/database/local_database.dart';
@@ -34,8 +34,10 @@ final GetIt getIt = GetIt.instance;
 
 Future<void> setupDependencies() async {
   // --- Core ----------------------------------------------------------------
+  // The database file is the active environment's `DB_NAME`
+  // (`config/<env>.json`), so each environment gets its own Sembast file.
   getIt.registerLazySingleton<LocalDatabase>(
-    () => LocalDatabase(fileName: AppConstants.databaseFileName),
+    () => LocalDatabase(fileName: AppConfig.dbName),
   );
 
   // --- Account feature -------------------------------------------------------
