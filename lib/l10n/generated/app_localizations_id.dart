@@ -69,6 +69,15 @@ class AppLocalizationsId extends AppLocalizations {
   String get accountCreateProfile => 'Buat profil';
 
   @override
+  String get splashWelcomeTitle => 'Selamat Datang';
+
+  @override
+  String get splashNameHint => 'Masukkan nama';
+
+  @override
+  String get splashNext => 'Lanjut';
+
+  @override
   String get settingsTitle => 'Pengaturan';
 
   @override

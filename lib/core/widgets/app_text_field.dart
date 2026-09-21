@@ -7,6 +7,7 @@ class AppTextField extends StatelessWidget {
     super.key,
     required this.label,
     required this.controller,
+    this.hint,
     this.errorText,
     this.keyboardType,
     this.textInputAction,
@@ -15,6 +16,10 @@ class AppTextField extends StatelessWidget {
   });
 
   final String label;
+
+  /// Optional placeholder shown inside the field while it is empty.
+  final String? hint;
+
   final TextEditingController controller;
   final String? errorText;
   final TextInputType? keyboardType;
@@ -32,6 +37,7 @@ class AppTextField extends StatelessWidget {
       textInputAction: textInputAction,
       decoration: InputDecoration(
         labelText: label,
+        hintText: hint,
         errorText: errorText,
       ),
     );

@@ -24,6 +24,10 @@
   "accountEmptyMessage": "Buat profil untuk memulai.",
   "accountCreateProfile": "Buat profil",
 
+  "splashWelcomeTitle": "Selamat Datang",
+  "splashNameHint": "Masukkan nama",
+  "splashNext": "Lanjut",
+
   "settingsTitle": "Pengaturan",
   "settingsTheme": "Tema",
   "settingsThemeSystem": "Sistem",

@@ -69,6 +69,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get accountCreateProfile => 'Create profile';
 
   @override
+  String get splashWelcomeTitle => 'Welcome';
+
+  @override
+  String get splashNameHint => 'Enter your name';
+
+  @override
+  String get splashNext => 'Next';
+
+  @override
   String get settingsTitle => 'Settings';
 
   @override

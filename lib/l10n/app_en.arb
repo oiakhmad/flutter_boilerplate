@@ -29,6 +29,10 @@
   "accountEmptyMessage": "Create your profile to get started.",
   "accountCreateProfile": "Create profile",
 
+  "splashWelcomeTitle": "Welcome",
+  "splashNameHint": "Enter your name",
+  "splashNext": "Next",
+
   "settingsTitle": "Settings",
   "settingsTheme": "Theme",
   "settingsThemeSystem": "System",

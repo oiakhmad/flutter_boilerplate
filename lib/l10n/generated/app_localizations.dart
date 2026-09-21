@@ -212,6 +212,24 @@ abstract class AppLocalizations {
   /// **'Create profile'**
   String get accountCreateProfile;
 
+  /// No description provided for @splashWelcomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome'**
+  String get splashWelcomeTitle;
+
+  /// No description provided for @splashNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your name'**
+  String get splashNameHint;
+
+  /// No description provided for @splashNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get splashNext;
+
   /// No description provided for @settingsTitle.
   ///
   /// In en, this message translates to:

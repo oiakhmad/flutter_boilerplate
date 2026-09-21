@@ -6,9 +6,11 @@ import 'package:flutter_clean_boilerplate/features/account/data/datasources/acco
 import 'package:flutter_clean_boilerplate/features/account/data/models/account_model.dart';
 import 'package:flutter_clean_boilerplate/features/account/data/repositories/account_repository_impl.dart';
 import 'package:flutter_clean_boilerplate/features/account/domain/repositories/account_repository.dart';
+import 'package:flutter_clean_boilerplate/features/account/domain/usecases/create_account.dart';
 import 'package:flutter_clean_boilerplate/features/account/domain/usecases/get_account.dart';
 import 'package:flutter_clean_boilerplate/features/account/domain/usecases/save_account.dart';
 import 'package:flutter_clean_boilerplate/features/account/presentation/controllers/account_controller.dart';
+import 'package:flutter_clean_boilerplate/features/account/presentation/controllers/splash_controller.dart';
 import 'package:flutter_clean_boilerplate/features/settings/data/datasources/settings_local_data_source.dart';
 import 'package:flutter_clean_boilerplate/features/settings/data/models/app_settings_model.dart';
 import 'package:flutter_clean_boilerplate/features/settings/data/repositories/settings_repository_impl.dart';
@@ -61,10 +63,24 @@ Future<void> setupDependencies() async {
   getIt.registerLazySingleton<SaveAccountUseCase>(
     () => SaveAccountUseCase(getIt<AccountRepository>()),
   );
+  // First-run onboarding (splash) creates the account from a name only.
+  getIt.registerLazySingleton<CreateAccountUseCase>(
+    () => CreateAccountUseCase(getIt<AccountRepository>()),
+  );
   getIt.registerFactory<AccountController>(
     () => AccountController(
       getAccount: getIt<GetAccountUseCase>(),
       saveAccount: getIt<SaveAccountUseCase>(),
+    ),
+  );
+
+  // SplashController is a singleton (not a factory) like SettingsController:
+  // main.dart resolves the first-run gate before runApp, the router gates on
+  // that same instance, and app.dart exposes it to the widget tree.
+  getIt.registerLazySingleton<SplashController>(
+    () => SplashController(
+      getAccount: getIt<GetAccountUseCase>(),
+      createAccount: getIt<CreateAccountUseCase>(),
     ),
   );
 

@@ -3,6 +3,7 @@ import 'package:flutter_clean_boilerplate/app/di/injector.dart';
 import 'package:flutter_clean_boilerplate/app/router/app_router.dart';
 import 'package:flutter_clean_boilerplate/app/theme/app_theme.dart';
 import 'package:flutter_clean_boilerplate/features/account/presentation/controllers/account_controller.dart';
+import 'package:flutter_clean_boilerplate/features/account/presentation/controllers/splash_controller.dart';
 import 'package:flutter_clean_boilerplate/features/settings/presentation/controllers/settings_controller.dart';
 import 'package:flutter_clean_boilerplate/l10n/generated/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +22,11 @@ class App extends StatelessWidget {
         // Shared across the whole app - it backs MaterialApp's theme/locale.
         ChangeNotifierProvider<SettingsController>.value(
           value: getIt<SettingsController>(),
+        ),
+        // Startup gate, resolved in main() before the first frame: the
+        // router and SplashPage read the same instance.
+        ChangeNotifierProvider<SplashController>.value(
+          value: getIt<SplashController>(),
         ),
         // New instance per subtree that needs it; get_it still owns wiring
         // of its dependencies.

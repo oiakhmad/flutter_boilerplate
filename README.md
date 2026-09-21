@@ -89,6 +89,40 @@ Rules of the road:
   never asks "am I in dev?".
 * Switching environments is a JSON edit, never a code edit.
 
+## First-run flow (Splash → Home)
+
+`main()` answers one question before the first frame — *does this device
+already have an account?* — and the router acts on the answer:
+
+```
+main()
+ ├─ setupDependencies()
+ ├─ getIt<SettingsController>().load()
+ └─ getIt<SplashController>().load()      # first-run gate (one Sembast read)
+runApp(App) → MaterialApp.router(routerConfig: appRouter)
+      └─ redirect: _guardFirstRun (app/router/app_router.dart)
+           ├─ account stored → /home     # splash is never built
+           └─ no account     → /splash   # Welcome + Name + Next
+```
+
+* `SplashController` is the gate; `hasAccount` is the only thing the router
+  looks at, and the redirect is re-evaluated automatically because the
+  controller is the router's `refreshListenable` — so the splash screen
+  contains no navigation code and no path strings.
+* **Next** calls `CreateAccountUseCase` (domain), which owns the rules: the
+  name must be non-blank and at least 2 characters, and the account is
+  created **once** — when an account already exists nothing is written, so
+  re-entering the flow can never duplicate or overwrite it.
+* The account is an ordinary Sembast record (`StorageKeys.currentAccountId`)
+  in the active environment's database, so it survives restarts, rebuilds
+  and re-installs as long as app data is not cleared.
+* A storage failure becomes the splash error state with a retry action —
+  the gate never lets an exception reach the widget tree.
+* Onboarding is part of the `account` feature (`create_account.dart`,
+  `splash_controller.dart`, `splash_page.dart`) because a separate feature
+  would have to import another feature's domain to create the account —
+  which [ARCHITECTURE.md](ARCHITECTURE.md) rule 9 forbids.
+
 ## Architecture overview
 
 Clean Architecture with three layers per feature, dependency direction
@@ -129,7 +163,7 @@ lib/
 │   └── widgets/     # Reusable UI: loading/empty/error states, form fields
 ├── features/
 │   ├── home/        # presentation only — no state to persist yet
-│   ├── account/     # full data/domain/presentation slice
+│   ├── account/     # full data/domain/presentation slice (incl. first-run Splash)
 │   └── settings/    # full data/domain/presentation slice
 └── main.dart
 ```

@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_clean_boilerplate/app/di/injector.dart';
 import 'package:flutter_clean_boilerplate/core/extensions/context_extensions.dart';
+import 'package:flutter_clean_boilerplate/features/account/presentation/controllers/splash_controller.dart';
 import 'package:flutter_clean_boilerplate/features/account/presentation/pages/account_page.dart';
+import 'package:flutter_clean_boilerplate/features/account/presentation/pages/splash_page.dart';
 import 'package:flutter_clean_boilerplate/features/home/presentation/pages/home_page.dart';
 import 'package:flutter_clean_boilerplate/features/settings/presentation/pages/settings_page.dart';
 import 'package:go_router/go_router.dart';
 
 /// Route paths, centralized so no widget ever hardcodes a path string.
 abstract final class AppRoutes {
+  /// First-run entry screen - shown only while no account exists yet.
+  static const String splash = '/splash';
+
   static const String home = '/home';
   static const String account = '/account';
   static const String settings = '/settings';
@@ -15,8 +21,19 @@ abstract final class AppRoutes {
 /// Adding a new bottom-nav tab means adding one branch here and one
 /// destination in `_AppBottomNavShell` below - no other file changes.
 final GoRouter appRouter = GoRouter(
-  initialLocation: AppRoutes.home,
+  initialLocation: AppRoutes.splash,
+  // The first-run gate is a ChangeNotifier, so the router re-evaluates
+  // [_guardFirstRun] the moment the account appears - that is how the splash
+  // screen leaves for Home without knowing any route path itself.
+  refreshListenable: getIt<SplashController>(),
+  redirect: _guardFirstRun,
   routes: [
+    // Entry screen, outside the bottom-nav shell: it is shown before there
+    // is anything to navigate between.
+    GoRoute(
+      path: AppRoutes.splash,
+      builder: (context, state) => const SplashPage(),
+    ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) =>
           _AppBottomNavShell(navigationShell: navigationShell),
@@ -49,6 +66,24 @@ final GoRouter appRouter = GoRouter(
     ),
   ],
 );
+
+/// The single place that decides "Splash or Home?".
+///
+/// - No account yet → every location is funnelled to Splash, so the app can
+///   never reach Home without completing onboarding.
+/// - Account exists → Splash is skipped entirely: a returning user lands on
+///   Home with no splash frame and no name form, because the gate is already
+///   resolved (before the first frame) in `main.dart`.
+///
+/// The gate is read from the `SplashController` singleton - the composition
+/// root owns that instance, so the router does not need a `BuildContext`.
+String? _guardFirstRun(BuildContext context, GoRouterState state) {
+  final hasAccount = getIt<SplashController>().hasAccount;
+  final atSplash = state.matchedLocation == AppRoutes.splash;
+
+  if (!hasAccount) return atSplash ? null : AppRoutes.splash;
+  return atSplash ? AppRoutes.home : null;
+}
 
 /// Persistent bottom-navigation scaffold.
 ///
