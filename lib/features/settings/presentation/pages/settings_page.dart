@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_clean_boilerplate/app/theme/app_spacing.dart';
 import 'package:flutter_clean_boilerplate/core/extensions/context_extensions.dart';
+import 'package:flutter_clean_boilerplate/features/app_lock/presentation/pages/security_page.dart';
 import 'package:flutter_clean_boilerplate/features/settings/domain/entities/app_settings.dart';
 import 'package:flutter_clean_boilerplate/features/settings/presentation/controllers/settings_controller.dart';
 import 'package:flutter_clean_boilerplate/features/settings/presentation/widgets/primary_color_section.dart';
@@ -64,6 +65,19 @@ class SettingsPage extends StatelessWidget {
                   value: 'id',
                 ),
               ],
+            ),
+          ),
+          const Divider(height: AppSpacing.xl),
+          // App Lock entry: a non-tab detail page pushed on top of the
+          // shell (same navigation pattern as EditAccountPage).
+          ListTile(
+            leading: const Icon(Icons.lock_outline),
+            title: Text(l10n.appLockSecurityTitle),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (_) => const SecurityPage(),
+              ),
             ),
           ),
         ],

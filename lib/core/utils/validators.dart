@@ -20,4 +20,13 @@ abstract final class Validators {
 
   static bool isValidEmail(String value) =>
       _emailPattern.hasMatch(value.trim());
+
+  /// True when [value] contains ASCII digits only (no spaces, signs or
+  /// other characters).
+  static bool isDigitsOnly(String value) =>
+      value.isNotEmpty && RegExp(r'^\d+$').hasMatch(value);
+
+  /// True when the raw [value] has exactly [length] characters.
+  static bool hasExactLength(String value, int length) =>
+      value.length == length;
 }

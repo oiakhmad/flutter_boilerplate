@@ -12,6 +12,20 @@ import 'package:flutter_clean_boilerplate/features/account/domain/usecases/remov
 import 'package:flutter_clean_boilerplate/features/account/domain/usecases/save_account.dart';
 import 'package:flutter_clean_boilerplate/features/account/presentation/controllers/account_controller.dart';
 import 'package:flutter_clean_boilerplate/features/account/presentation/controllers/splash_controller.dart';
+import 'package:flutter_clean_boilerplate/features/app_lock/data/datasources/app_lock_local_data_source.dart';
+import 'package:flutter_clean_boilerplate/features/app_lock/data/datasources/app_lock_secure_data_source.dart';
+import 'package:flutter_clean_boilerplate/features/app_lock/data/models/app_lock_config_model.dart';
+import 'package:flutter_clean_boilerplate/features/app_lock/data/repositories/app_lock_repository_impl.dart';
+import 'package:flutter_clean_boilerplate/features/app_lock/domain/repositories/app_lock_repository.dart';
+import 'package:flutter_clean_boilerplate/features/app_lock/domain/usecases/change_pin.dart';
+import 'package:flutter_clean_boilerplate/features/app_lock/domain/usecases/disable_pin.dart';
+import 'package:flutter_clean_boilerplate/features/app_lock/domain/usecases/enable_pin.dart';
+import 'package:flutter_clean_boilerplate/features/app_lock/domain/usecases/get_app_lock_config.dart';
+import 'package:flutter_clean_boilerplate/features/app_lock/domain/usecases/recover_pin.dart';
+import 'package:flutter_clean_boilerplate/features/app_lock/domain/usecases/set_recovery_question.dart';
+import 'package:flutter_clean_boilerplate/features/app_lock/domain/usecases/verify_pin.dart';
+import 'package:flutter_clean_boilerplate/features/app_lock/domain/usecases/verify_recovery_answer.dart';
+import 'package:flutter_clean_boilerplate/features/app_lock/presentation/controllers/app_lock_controller.dart';
 import 'package:flutter_clean_boilerplate/features/settings/data/datasources/settings_local_data_source.dart';
 import 'package:flutter_clean_boilerplate/features/settings/data/models/app_settings_model.dart';
 import 'package:flutter_clean_boilerplate/features/settings/data/repositories/settings_repository_impl.dart';
@@ -90,6 +104,71 @@ Future<void> setupDependencies() async {
     () => SplashController(
       getAccount: getIt<GetAccountUseCase>(),
       createAccount: getIt<CreateAccountUseCase>(),
+    ),
+  );
+
+  // --- App Lock feature -------------------------------------------------------
+  // Two data sources: Sembast holds the non-sensitive config record, the
+  // platform secure storage (Android Keystore / iOS Keychain) holds the
+  // PIN and the recovery answer. Secrets never reach Sembast.
+  getIt.registerLazySingleton<DatabaseStore<AppLockConfigModel>>(
+    () => DatabaseStore<AppLockConfigModel>(
+      database: getIt<LocalDatabase>(),
+      storeName: StorageKeys.appLockStore,
+      fromMap: AppLockConfigModel.fromMap,
+      toMap: (model) => model.toMap(),
+    ),
+  );
+  getIt.registerLazySingleton<AppLockLocalDataSource>(
+    () => AppLockLocalDataSource(getIt<DatabaseStore<AppLockConfigModel>>()),
+  );
+  getIt.registerLazySingleton<AppLockSecureDataSource>(
+    () => AppLockSecureDataSource(),
+  );
+  getIt.registerLazySingleton<AppLockRepository>(
+    () => AppLockRepositoryImpl(
+      getIt<AppLockLocalDataSource>(),
+      getIt<AppLockSecureDataSource>(),
+    ),
+  );
+  getIt.registerLazySingleton<GetAppLockConfigUseCase>(
+    () => GetAppLockConfigUseCase(getIt<AppLockRepository>()),
+  );
+  getIt.registerLazySingleton<EnablePinUseCase>(
+    () => EnablePinUseCase(getIt<AppLockRepository>()),
+  );
+  getIt.registerLazySingleton<DisablePinUseCase>(
+    () => DisablePinUseCase(getIt<AppLockRepository>()),
+  );
+  getIt.registerLazySingleton<VerifyPinUseCase>(
+    () => VerifyPinUseCase(getIt<AppLockRepository>()),
+  );
+  getIt.registerLazySingleton<VerifyRecoveryAnswerUseCase>(
+    () => VerifyRecoveryAnswerUseCase(getIt<AppLockRepository>()),
+  );
+  getIt.registerLazySingleton<ChangePinUseCase>(
+    () => ChangePinUseCase(getIt<AppLockRepository>()),
+  );
+  getIt.registerLazySingleton<SetRecoveryQuestionUseCase>(
+    () => SetRecoveryQuestionUseCase(getIt<AppLockRepository>()),
+  );
+  getIt.registerLazySingleton<RecoverPinUseCase>(
+    () => RecoverPinUseCase(getIt<AppLockRepository>()),
+  );
+
+  // AppLockController is a singleton (not a factory): main.dart loads the
+  // config (and arms the lifecycle lock) before runApp, the router gates
+  // on that same instance, and app.dart exposes it to the widget tree.
+  getIt.registerLazySingleton<AppLockController>(
+    () => AppLockController(
+      getConfig: getIt<GetAppLockConfigUseCase>(),
+      enablePin: getIt<EnablePinUseCase>(),
+      disablePin: getIt<DisablePinUseCase>(),
+      verifyPin: getIt<VerifyPinUseCase>(),
+      verifyRecoveryAnswer: getIt<VerifyRecoveryAnswerUseCase>(),
+      changePin: getIt<ChangePinUseCase>(),
+      setRecoveryQuestion: getIt<SetRecoveryQuestionUseCase>(),
+      recoverPin: getIt<RecoverPinUseCase>(),
     ),
   );
 

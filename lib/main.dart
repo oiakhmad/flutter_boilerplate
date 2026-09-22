@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_clean_boilerplate/app/app.dart';
 import 'package:flutter_clean_boilerplate/app/di/injector.dart';
 import 'package:flutter_clean_boilerplate/features/account/presentation/controllers/splash_controller.dart';
+import 'package:flutter_clean_boilerplate/features/app_lock/presentation/controllers/app_lock_controller.dart';
 import 'package:flutter_clean_boilerplate/features/settings/presentation/controllers/settings_controller.dart';
 
 /// Startup sequence (see ARCHITECTURE.md):
@@ -15,10 +16,14 @@ import 'package:flutter_clean_boilerplate/features/settings/presentation/control
 ///      account? Doing it here - not on the Home screen - is what lets a
 ///      returning user go straight to Home without ever seeing the splash
 ///      form, and it never creates a second account.
-///   5. Run the app
+///   5. Load the App Lock config: this arms the lifecycle observer and
+///      resolves `isLocked` before the first frame, so a locked install
+///      opens straight onto the Lock Screen instead of briefly showing
+///      content behind it.
+///   6. Run the app
 ///
 /// Each step is awaited before the next starts, so there is no
-/// initialization race: nothing in step 5 can run before steps 1-4
+/// initialization race: nothing in step 6 can run before steps 1-5
 /// complete.
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,6 +31,7 @@ Future<void> main() async {
   await setupDependencies();
   await getIt<SettingsController>().load();
   await getIt<SplashController>().load();
+  await getIt<AppLockController>().load();
 
   runApp(const App());
 }

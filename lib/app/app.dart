@@ -3,6 +3,7 @@ import 'package:flutter_clean_boilerplate/app/di/injector.dart';
 import 'package:flutter_clean_boilerplate/app/router/app_router.dart';
 import 'package:flutter_clean_boilerplate/features/account/presentation/controllers/account_controller.dart';
 import 'package:flutter_clean_boilerplate/features/account/presentation/controllers/splash_controller.dart';
+import 'package:flutter_clean_boilerplate/features/app_lock/presentation/controllers/app_lock_controller.dart';
 import 'package:flutter_clean_boilerplate/features/settings/presentation/controllers/settings_controller.dart';
 import 'package:flutter_clean_boilerplate/l10n/generated/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +27,12 @@ class App extends StatelessWidget {
         // router and SplashPage read the same instance.
         ChangeNotifierProvider<SplashController>.value(
           value: getIt<SplashController>(),
+        ),
+        // App Lock gate, also loaded in main() before the first frame: the
+        // router redirects to the Lock Screen off this instance, and the
+        // Security/Lock pages watch it.
+        ChangeNotifierProvider<AppLockController>.value(
+          value: getIt<AppLockController>(),
         ),
         // New instance per subtree that needs it; get_it still owns wiring
         // of its dependencies.

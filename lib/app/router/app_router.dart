@@ -4,6 +4,8 @@ import 'package:flutter_clean_boilerplate/core/extensions/context_extensions.dar
 import 'package:flutter_clean_boilerplate/features/account/presentation/controllers/splash_controller.dart';
 import 'package:flutter_clean_boilerplate/features/account/presentation/pages/account_page.dart';
 import 'package:flutter_clean_boilerplate/features/account/presentation/pages/splash_page.dart';
+import 'package:flutter_clean_boilerplate/features/app_lock/presentation/controllers/app_lock_controller.dart';
+import 'package:flutter_clean_boilerplate/features/app_lock/presentation/pages/lock_page.dart';
 import 'package:flutter_clean_boilerplate/features/home/presentation/pages/home_page.dart';
 import 'package:flutter_clean_boilerplate/features/settings/presentation/pages/settings_page.dart';
 import 'package:go_router/go_router.dart';
@@ -12,6 +14,9 @@ import 'package:go_router/go_router.dart';
 abstract final class AppRoutes {
   /// First-run entry screen - shown only while no account exists yet.
   static const String splash = '/splash';
+
+  /// App Lock screen - shown while the PIN lock is engaged.
+  static const String lock = '/lock';
 
   static const String home = '/home';
   static const String account = '/account';
@@ -22,12 +27,23 @@ abstract final class AppRoutes {
 /// destination in `_AppBottomNavShell` below - no other file changes.
 final GoRouter appRouter = GoRouter(
   initialLocation: AppRoutes.splash,
-  // The first-run gate is a ChangeNotifier, so the router re-evaluates
-  // [_guardFirstRun] the moment the account appears - that is how the splash
-  // screen leaves for Home without knowing any route path itself.
-  refreshListenable: getIt<SplashController>(),
-  redirect: _guardFirstRun,
+  // Two gates react to state changes: the first-run gate
+  // (SplashController) and the App Lock gate (AppLockController - the
+  // lifecycle observer flips `isLocked` when the app goes to the
+  // background). Merging both listentables makes the router re-evaluate
+  // [_guard] the moment either one changes.
+  refreshListenable: Listenable.merge([
+    getIt<SplashController>(),
+    getIt<AppLockController>(),
+  ]),
+  redirect: _guard,
   routes: [
+    // App Lock screen, outside the bottom-nav shell: shown before there is
+    // anything to navigate between while the lock is engaged.
+    GoRoute(
+      path: AppRoutes.lock,
+      builder: (context, state) => const LockPage(),
+    ),
     // Entry screen, outside the bottom-nav shell: it is shown before there
     // is anything to navigate between.
     GoRoute(
@@ -66,6 +82,39 @@ final GoRouter appRouter = GoRouter(
     ),
   ],
 );
+
+/// The single place that decides "Locked, Splash or Home?".
+///
+/// - Lock engaged → every location is funnelled to [/lock], remembering
+///   where the user was ([AppLockController.returnLocation]); the system
+///   back button cannot escape the lock because the redirect simply sends
+///   it back to /lock.
+/// - Lock disengaged while sitting on /lock → the remembered location is
+///   restored (Home when it is gone), then the first-run gate runs - so
+///   unlocking returns the user exactly where they were, except on cold
+///   start where the remembered /splash resolves through the first-run
+///   gate to Home.
+/// - Lock off entirely → the gate reduces to [_guardFirstRun].
+///
+/// Both gates read their state from composition-root singletons
+/// ([AppLockController], [SplashController]), so the router does not need
+/// a [BuildContext].
+String? _guard(BuildContext context, GoRouterState state) {
+  final appLock = getIt<AppLockController>();
+  final location = state.matchedLocation;
+
+  if (appLock.isLocked) {
+    // Already on the lock screen: keep the previously remembered origin
+    // (returning early means this branch never overwrites it with /lock).
+    if (location == AppRoutes.lock) return null;
+    appLock.returnLocation = location;
+    return AppRoutes.lock;
+  }
+  if (location == AppRoutes.lock) {
+    return appLock.returnLocation ?? AppRoutes.home;
+  }
+  return _guardFirstRun(context, state);
+}
 
 /// The single place that decides "Splash or Home?".
 ///

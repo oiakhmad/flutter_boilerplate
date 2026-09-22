@@ -451,6 +451,294 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Input does not match the confirmation word'**
   String get removeAccountMismatch;
+
+  /// Title of the App Security page and its Settings entry
+  ///
+  /// In en, this message translates to:
+  /// **'App Security'**
+  String get appLockSecurityTitle;
+
+  /// Section header grouping the PIN lock controls
+  ///
+  /// In en, this message translates to:
+  /// **'App Lock'**
+  String get appLockSectionTitle;
+
+  /// Title of the master switch tile for the PIN lock
+  ///
+  /// In en, this message translates to:
+  /// **'6-Digit PIN Lock'**
+  String get appLockPinTitle;
+
+  /// Status shown while the PIN lock is off
+  ///
+  /// In en, this message translates to:
+  /// **'PIN not active'**
+  String get appLockPinInactive;
+
+  /// Status shown while the PIN lock is on
+  ///
+  /// In en, this message translates to:
+  /// **'PIN active'**
+  String get appLockPinActive;
+
+  /// Menu item that opens the change-PIN flow; only usable while the PIN lock is active
+  ///
+  /// In en, this message translates to:
+  /// **'Change 6-Digit PIN'**
+  String get appLockChangePinTitle;
+
+  /// Subtitle of the change-PIN menu while the lock is off
+  ///
+  /// In en, this message translates to:
+  /// **'Enable the PIN lock first'**
+  String get appLockChangePinInactiveHint;
+
+  /// Menu item and dialog title for the recovery security question
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery Security Question'**
+  String get appLockRecoveryTitle;
+
+  /// Status shown while no recovery question is configured
+  ///
+  /// In en, this message translates to:
+  /// **'Not set (Tap to set)'**
+  String get appLockRecoveryNotSet;
+
+  /// Status shown while a recovery question is configured
+  ///
+  /// In en, this message translates to:
+  /// **'Configured (Tap to change)'**
+  String get appLockRecoverySet;
+
+  /// Title of the first step of the PIN setup dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Create PIN'**
+  String get appLockCreatePinTitle;
+
+  /// Prompt for entering a new PIN
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a 6-digit PIN'**
+  String get appLockCreatePinPrompt;
+
+  /// Title of the confirmation step of the PIN setup dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm PIN'**
+  String get appLockConfirmPinTitle;
+
+  /// Prompt for confirming the newly created PIN
+  ///
+  /// In en, this message translates to:
+  /// **'Re-enter the PIN to confirm'**
+  String get appLockConfirmPinPrompt;
+
+  /// Title of the dialog that verifies the PIN before turning the lock off
+  ///
+  /// In en, this message translates to:
+  /// **'Turn off app lock?'**
+  String get appLockDisableTitle;
+
+  /// Prompt when the current PIN must be verified
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your 6-digit PIN to continue'**
+  String get appLockEnterPinPrompt;
+
+  /// Prompt for choosing a new PIN in the change/recovery flows
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a new 6-digit PIN'**
+  String get appLockNewPinPrompt;
+
+  /// Prompt for confirming the new PIN
+  ///
+  /// In en, this message translates to:
+  /// **'Re-enter the new PIN to confirm'**
+  String get appLockConfirmNewPinPrompt;
+
+  /// First step of the change-PIN dialog: verify the old PIN
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your current PIN first'**
+  String get appLockChangeOldPinPrompt;
+
+  /// Button that advances to the next step of a PIN dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get appLockActionNext;
+
+  /// Final submit button of the PIN dialogs
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get appLockActionConfirm;
+
+  /// Generic cancel button
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get actionCancel;
+
+  /// Error when the PIN is not exactly six ASCII digits
+  ///
+  /// In en, this message translates to:
+  /// **'PIN must be exactly 6 digits'**
+  String get appLockPinInvalid;
+
+  /// Error when the confirmation PIN differs from the chosen PIN
+  ///
+  /// In en, this message translates to:
+  /// **'PINs do not match'**
+  String get appLockPinMismatch;
+
+  /// Error when a submitted PIN does not match the stored one
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect PIN'**
+  String get appLockPinIncorrect;
+
+  /// Error when enabling the lock while it is already on
+  ///
+  /// In en, this message translates to:
+  /// **'PIN lock is already enabled'**
+  String get appLockAlreadyEnabled;
+
+  /// Lockout message after too many failed PIN attempts; {seconds} is the remaining cooldown
+  ///
+  /// In en, this message translates to:
+  /// **'Too many attempts. Try again in {seconds} seconds.'**
+  String appLockTooManyAttempts(int seconds);
+
+  /// Error when the recovery answer is blank
+  ///
+  /// In en, this message translates to:
+  /// **'Answer is required'**
+  String get appLockAnswerRequired;
+
+  /// Error when the recovery answer does not match the stored one
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect answer'**
+  String get appLockAnswerIncorrect;
+
+  /// Error when the recovery question id is not one of the presets
+  ///
+  /// In en, this message translates to:
+  /// **'Select a valid question'**
+  String get appLockQuestionInvalid;
+
+  /// Headline on the App Lock screen
+  ///
+  /// In en, this message translates to:
+  /// **'App locked'**
+  String get appLockLockedTitle;
+
+  /// Explanatory text on the App Lock screen
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your PIN to unlock the app.'**
+  String get appLockLockedMessage;
+
+  /// Submit button on the App Lock screen
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock'**
+  String get appLockUnlockAction;
+
+  /// Link on the App Lock screen that starts the recovery flow; only shown when a recovery question is configured
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot PIN?'**
+  String get appLockForgotPin;
+
+  /// Explanation shown while configuring the recovery question
+  ///
+  /// In en, this message translates to:
+  /// **'Answer this question if you forget your PIN. It lets you set a new PIN without losing your data.'**
+  String get appLockRecoverySetupMessage;
+
+  /// Label of the recovery answer input
+  ///
+  /// In en, this message translates to:
+  /// **'Answer'**
+  String get appLockRecoveryAnswerLabel;
+
+  /// Placeholder inside the recovery answer input
+  ///
+  /// In en, this message translates to:
+  /// **'Type your answer'**
+  String get appLockRecoveryAnswerHint;
+
+  /// Title of the forgot-PIN recovery flow dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Reset PIN'**
+  String get appLockRecoveryUnlockTitle;
+
+  /// Explanation shown at the start of the forgot-PIN recovery flow
+  ///
+  /// In en, this message translates to:
+  /// **'Answer your security question, then choose a new PIN.'**
+  String get appLockRecoveryUnlockMessage;
+
+  /// Preset recovery question (id: pet)
+  ///
+  /// In en, this message translates to:
+  /// **'What is the name of your first pet?'**
+  String get appLockQuestionPet;
+
+  /// Preset recovery question (id: city)
+  ///
+  /// In en, this message translates to:
+  /// **'In what city were you born?'**
+  String get appLockQuestionCity;
+
+  /// Preset recovery question (id: teacher)
+  ///
+  /// In en, this message translates to:
+  /// **'Who is your favorite teacher?'**
+  String get appLockQuestionTeacher;
+
+  /// Preset recovery question (id: vehicle)
+  ///
+  /// In en, this message translates to:
+  /// **'What was your first vehicle?'**
+  String get appLockQuestionVehicle;
+
+  /// Preset recovery question (id: street)
+  ///
+  /// In en, this message translates to:
+  /// **'On which street did you grow up?'**
+  String get appLockQuestionStreet;
+
+  /// Success message after the PIN lock is turned on
+  ///
+  /// In en, this message translates to:
+  /// **'App lock enabled'**
+  String get appLockEnabled;
+
+  /// Success message after the PIN lock is turned off
+  ///
+  /// In en, this message translates to:
+  /// **'App lock disabled'**
+  String get appLockDisabled;
+
+  /// Success message after the PIN is changed
+  ///
+  /// In en, this message translates to:
+  /// **'PIN changed successfully'**
+  String get appLockPinChanged;
+
+  /// Success message after the recovery question is saved
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery question saved'**
+  String get appLockRecoverySaved;
 }
 
 class _AppLocalizationsDelegate

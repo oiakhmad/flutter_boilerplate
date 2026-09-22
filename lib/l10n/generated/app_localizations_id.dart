@@ -196,4 +196,154 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get removeAccountMismatch =>
       'Input tidak sesuai dengan kata konfirmasi';
+
+  @override
+  String get appLockSecurityTitle => 'Keamanan Aplikasi';
+
+  @override
+  String get appLockSectionTitle => 'Kunci Aplikasi';
+
+  @override
+  String get appLockPinTitle => 'Kunci PIN 6-Digit';
+
+  @override
+  String get appLockPinInactive => 'PIN tidak aktif';
+
+  @override
+  String get appLockPinActive => 'PIN aktif';
+
+  @override
+  String get appLockChangePinTitle => 'Ubah PIN 6-Digit';
+
+  @override
+  String get appLockChangePinInactiveHint =>
+      'Aktifkan Kunci PIN terlebih dahulu';
+
+  @override
+  String get appLockRecoveryTitle => 'Pertanyaan Keamanan Pemulihan';
+
+  @override
+  String get appLockRecoveryNotSet => 'Belum diatur (Ketuk untuk atur)';
+
+  @override
+  String get appLockRecoverySet => 'Sudah diatur (Ketuk untuk ubah)';
+
+  @override
+  String get appLockCreatePinTitle => 'Buat PIN';
+
+  @override
+  String get appLockCreatePinPrompt => 'Masukkan PIN 6 digit';
+
+  @override
+  String get appLockConfirmPinTitle => 'Konfirmasi PIN';
+
+  @override
+  String get appLockConfirmPinPrompt => 'Masukkan kembali PIN untuk konfirmasi';
+
+  @override
+  String get appLockDisableTitle => 'Nonaktifkan kunci aplikasi?';
+
+  @override
+  String get appLockEnterPinPrompt => 'Masukkan PIN 6-digit untuk melanjutkan';
+
+  @override
+  String get appLockNewPinPrompt => 'Masukkan PIN 6 digit baru';
+
+  @override
+  String get appLockConfirmNewPinPrompt =>
+      'Masukkan kembali PIN baru untuk konfirmasi';
+
+  @override
+  String get appLockChangeOldPinPrompt => 'Masukkan PIN lama terlebih dahulu';
+
+  @override
+  String get appLockActionNext => 'Lanjut';
+
+  @override
+  String get appLockActionConfirm => 'Konfirmasi';
+
+  @override
+  String get actionCancel => 'Batal';
+
+  @override
+  String get appLockPinInvalid => 'PIN harus terdiri dari tepat 6 digit angka';
+
+  @override
+  String get appLockPinMismatch => 'PIN tidak sama';
+
+  @override
+  String get appLockPinIncorrect => 'PIN salah';
+
+  @override
+  String get appLockAlreadyEnabled => 'Kunci PIN sudah aktif';
+
+  @override
+  String appLockTooManyAttempts(int seconds) {
+    return 'Terlalu banyak percobaan. Coba lagi dalam $seconds detik.';
+  }
+
+  @override
+  String get appLockAnswerRequired => 'Jawaban wajib diisi';
+
+  @override
+  String get appLockAnswerIncorrect => 'Jawaban salah';
+
+  @override
+  String get appLockQuestionInvalid => 'Pilih pertanyaan yang valid';
+
+  @override
+  String get appLockLockedTitle => 'Aplikasi terkunci';
+
+  @override
+  String get appLockLockedMessage => 'Masukkan PIN untuk membuka aplikasi.';
+
+  @override
+  String get appLockUnlockAction => 'Buka';
+
+  @override
+  String get appLockForgotPin => 'Lupa PIN?';
+
+  @override
+  String get appLockRecoverySetupMessage =>
+      'Jawab pertanyaan ini jika kamu lupa PIN. Pertanyaan ini memungkinkanmu mengatur ulang PIN tanpa menghapus datamu.';
+
+  @override
+  String get appLockRecoveryAnswerLabel => 'Jawaban';
+
+  @override
+  String get appLockRecoveryAnswerHint => 'Ketik jawabanmu';
+
+  @override
+  String get appLockRecoveryUnlockTitle => 'Atur Ulang PIN';
+
+  @override
+  String get appLockRecoveryUnlockMessage =>
+      'Jawab pertanyaan keamanan, lalu pilih PIN baru.';
+
+  @override
+  String get appLockQuestionPet => 'Apa nama hewan peliharaan pertamamu?';
+
+  @override
+  String get appLockQuestionCity => 'Di kota mana kamu lahir?';
+
+  @override
+  String get appLockQuestionTeacher => 'Siapa nama guru favoritmu?';
+
+  @override
+  String get appLockQuestionVehicle => 'Apa kendaraan pertamamu?';
+
+  @override
+  String get appLockQuestionStreet => 'Di jalan mana kamu besar?';
+
+  @override
+  String get appLockEnabled => 'Kunci aplikasi diaktifkan';
+
+  @override
+  String get appLockDisabled => 'Kunci aplikasi dinonaktifkan';
+
+  @override
+  String get appLockPinChanged => 'PIN berhasil diubah';
+
+  @override
+  String get appLockRecoverySaved => 'Pertanyaan pemulihan disimpan';
 }

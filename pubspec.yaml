@@ -47,6 +47,14 @@ dependencies:
   # --- Localization ----------------------------------------------------------
   intl: ^0.20.2
 
+  # --- Secure storage --------------------------------------------------------
+  # flutter_secure_storage: OS-backed vault (Android Keystore / iOS Keychain)
+  # used by the App Lock feature to keep the 6-digit PIN and the recovery
+  # answer. Secrets must never live in Sembast or SharedPreferences - only
+  # non-sensitive App Lock config (enabled flag, attempt counter) goes to
+  # Sembast (see .ai/features-app-lock.md).
+  flutter_secure_storage: ^11.2.0
+
   cupertino_icons: ^1.0.8
 
 dev_dependencies:

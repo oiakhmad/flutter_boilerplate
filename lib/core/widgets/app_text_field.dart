@@ -13,6 +13,7 @@ class AppTextField extends StatelessWidget {
     this.textInputAction,
     this.enabled = true,
     this.autofocus = false,
+    this.obscureText = false,
   });
 
   final String label;
@@ -27,12 +28,16 @@ class AppTextField extends StatelessWidget {
   final bool enabled;
   final bool autofocus;
 
+  /// Hides the typed characters (e.g. recovery answers) as dots.
+  final bool obscureText;
+
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
       enabled: enabled,
       autofocus: autofocus,
+      obscureText: obscureText,
       keyboardType: keyboardType,
       textInputAction: textInputAction,
       decoration: InputDecoration(
