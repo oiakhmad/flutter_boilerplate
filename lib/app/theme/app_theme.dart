@@ -45,7 +45,11 @@ abstract final class AppTheme {
       ),
       navigationBarTheme: NavigationBarThemeData(
         backgroundColor: scheme.surface,
-        indicatorColor: scheme.secondaryContainer,
+        // No pill/circle indicator: the active destination is distinguished
+        // by icon + label color only (see _AppBottomNavShell), so the
+        // indicator is fully transparent in every theme.
+        indicatorColor: Colors.transparent,
+        elevation: 0,
       ),
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(

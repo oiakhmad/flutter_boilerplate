@@ -90,6 +90,15 @@ String? _guardFirstRun(BuildContext context, GoRouterState state) {
 /// `StatefulShellRoute` keeps each branch's Navigator (and its state) alive
 /// across tab switches, so switching tabs never re-runs a tab's expensive
 /// initialization - it only changes which branch is visible.
+///
+/// Styling is intentionally clean and minimal: the M3 `NavigationBar`
+/// indicator is transparent (see `navigationBarTheme`), so the active
+/// destination is distinguished by icon + label color only —
+/// `ColorScheme.primary` for active, `ColorScheme.onSurfaceVariant` for
+/// inactive — with a slightly bolder active label. Colors resolve from the
+/// ambient `ColorScheme`, so light/dark/custom seeds are followed
+/// automatically, and the bar's built-in animation keeps the transition
+/// smooth. Labels are always shown.
 class _AppBottomNavShell extends StatelessWidget {
   const _AppBottomNavShell({required this.navigationShell});
 
@@ -98,32 +107,60 @@ class _AppBottomNavShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final colorScheme = Theme.of(context).colorScheme;
+    final activeColor = colorScheme.primary;
+    final inactiveColor = colorScheme.onSurfaceVariant;
+
+    Widget destination({
+      required IconData icon,
+      required IconData activeIcon,
+      required String label,
+    }) {
+      return NavigationDestination(
+        icon: Icon(icon, color: inactiveColor),
+        selectedIcon: Icon(activeIcon, color: activeColor),
+        label: label,
+      );
+    }
 
     return Scaffold(
       body: navigationShell,
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: navigationShell.currentIndex,
-        onDestinationSelected: (index) => navigationShell.goBranch(
-          index,
-          initialLocation: index == navigationShell.currentIndex,
+      bottomNavigationBar: NavigationBarTheme(
+        data: NavigationBarTheme.of(context).copyWith(
+          labelTextStyle: WidgetStateProperty.resolveWith((states) {
+            final selected = states.contains(WidgetState.selected);
+            return TextStyle(
+              color: selected ? activeColor : inactiveColor,
+              fontSize: 12,
+              fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
+            );
+          }),
         ),
-        destinations: [
-          NavigationDestination(
-            icon: const Icon(Icons.home_outlined),
-            selectedIcon: const Icon(Icons.home),
-            label: l10n.navHome,
+        child: NavigationBar(
+          selectedIndex: navigationShell.currentIndex,
+          onDestinationSelected: (index) => navigationShell.goBranch(
+            index,
+            initialLocation: index == navigationShell.currentIndex,
           ),
-          NavigationDestination(
-            icon: const Icon(Icons.person_outline),
-            selectedIcon: const Icon(Icons.person),
-            label: l10n.navAccount,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.settings_outlined),
-            selectedIcon: const Icon(Icons.settings),
-            label: l10n.navSettings,
-          ),
-        ],
+          labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+          destinations: [
+            destination(
+              icon: Icons.home_outlined,
+              activeIcon: Icons.home,
+              label: l10n.navHome,
+            ),
+            destination(
+              icon: Icons.person_outline,
+              activeIcon: Icons.person,
+              label: l10n.navAccount,
+            ),
+            destination(
+              icon: Icons.settings_outlined,
+              activeIcon: Icons.settings,
+              label: l10n.navSettings,
+            ),
+          ],
+        ),
       ),
     );
   }
