@@ -3,6 +3,7 @@ import 'package:flutter_clean_boilerplate/app/theme/app_spacing.dart';
 import 'package:flutter_clean_boilerplate/core/extensions/context_extensions.dart';
 import 'package:flutter_clean_boilerplate/features/settings/domain/entities/app_settings.dart';
 import 'package:flutter_clean_boilerplate/features/settings/presentation/controllers/settings_controller.dart';
+import 'package:flutter_clean_boilerplate/features/settings/presentation/widgets/primary_color_section.dart';
 import 'package:provider/provider.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -42,6 +43,9 @@ class SettingsPage extends StatelessWidget {
               ],
             ),
           ),
+          const Divider(height: AppSpacing.xl),
+          _SectionHeader(title: l10n.settingsPrimaryColor),
+          const PrimaryColorSection(),
           const Divider(height: AppSpacing.xl),
           _SectionHeader(title: l10n.settingsLanguage),
           RadioGroup<String>(

@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter_clean_boilerplate/features/settings/domain/entities/primary_color_preference.dart';
 
 /// Domain-owned theme preference.
 ///
@@ -13,11 +14,13 @@ class AppSettings extends Equatable {
   const AppSettings({
     required this.themeMode,
     required this.languageCode,
+    required this.primaryColor,
   });
 
   factory AppSettings.initial() => const AppSettings(
         themeMode: AppThemeMode.system,
         languageCode: 'en',
+        primaryColor: PrimaryColorPreference.defaultPreset(),
       );
 
   final AppThemeMode themeMode;
@@ -26,13 +29,22 @@ class AppSettings extends Equatable {
   /// `dart:ui`'s `Locale` for the same reason as [themeMode].
   final String languageCode;
 
-  AppSettings copyWith({AppThemeMode? themeMode, String? languageCode}) {
+  /// Seed-color preference used to derive both light and dark
+  /// `ColorScheme`s via `ColorScheme.fromSeed`.
+  final PrimaryColorPreference primaryColor;
+
+  AppSettings copyWith({
+    AppThemeMode? themeMode,
+    String? languageCode,
+    PrimaryColorPreference? primaryColor,
+  }) {
     return AppSettings(
       themeMode: themeMode ?? this.themeMode,
       languageCode: languageCode ?? this.languageCode,
+      primaryColor: primaryColor ?? this.primaryColor,
     );
   }
 
   @override
-  List<Object?> get props => [themeMode, languageCode];
+  List<Object?> get props => [themeMode, languageCode, primaryColor];
 }

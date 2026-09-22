@@ -18,6 +18,7 @@ import 'package:flutter_clean_boilerplate/features/settings/data/repositories/se
 import 'package:flutter_clean_boilerplate/features/settings/domain/repositories/settings_repository.dart';
 import 'package:flutter_clean_boilerplate/features/settings/domain/usecases/get_settings.dart';
 import 'package:flutter_clean_boilerplate/features/settings/domain/usecases/update_language.dart';
+import 'package:flutter_clean_boilerplate/features/settings/domain/usecases/update_primary_color.dart';
 import 'package:flutter_clean_boilerplate/features/settings/domain/usecases/update_theme_mode.dart';
 import 'package:flutter_clean_boilerplate/features/settings/presentation/controllers/settings_controller.dart';
 import 'package:get_it/get_it.dart';
@@ -116,6 +117,9 @@ Future<void> setupDependencies() async {
   getIt.registerLazySingleton<UpdateLanguageUseCase>(
     () => UpdateLanguageUseCase(getIt<SettingsRepository>()),
   );
+  getIt.registerLazySingleton<UpdatePrimaryColorUseCase>(
+    () => UpdatePrimaryColorUseCase(getIt<SettingsRepository>()),
+  );
 
   // SettingsController is a singleton (not a factory): the whole app
   // shares one instance because it drives MaterialApp's theme/locale.
@@ -124,6 +128,7 @@ Future<void> setupDependencies() async {
       getSettings: getIt<GetSettingsUseCase>(),
       updateThemeMode: getIt<UpdateThemeModeUseCase>(),
       updateLanguage: getIt<UpdateLanguageUseCase>(),
+      updatePrimaryColor: getIt<UpdatePrimaryColorUseCase>(),
     ),
   );
 }

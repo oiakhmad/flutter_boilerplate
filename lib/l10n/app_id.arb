@@ -37,6 +37,17 @@
   "settingsLanguageEnglish": "Inggris",
   "settingsLanguageIndonesian": "Indonesia",
 
+  "settingsPrimaryColor": "Warna utama",
+  "@settingsPrimaryColor": {"description": "Judul bagian pemilih warna utama di Pengaturan"},
+  "settingsPrimaryColorCustom": "Kustom",
+  "@settingsPrimaryColorCustom": {"description": "Label opsi warna kustom pada pemilih warna utama"},
+  "settingsPrimaryColorCustomHint": "Pilih warna favoritmu — warna ini menjadi seed seluruh skema warna.",
+  "@settingsPrimaryColorCustomHint": {"description": "Teks bantuan di bawah opsi warna kustom"},
+  "settingsPrimaryColorChooseTitle": "Pilih warna kustom",
+  "@settingsPrimaryColorChooseTitle": {"description": "Judul dialog pemilih warna kustom"},
+  "settingsPrimaryColorUseColor": "Gunakan warna ini",
+  "@settingsPrimaryColorUseColor": {"description": "Tombol konfirmasi pada dialog pemilih warna kustom"},
+
   "validationNameRequired": "Nama wajib diisi",
   "validationNameTooShort": "Nama minimal {min} karakter",
   "validationEmailRequired": "Email wajib diisi",

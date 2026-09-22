@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_clean_boilerplate/app/di/injector.dart';
 import 'package:flutter_clean_boilerplate/app/router/app_router.dart';
-import 'package:flutter_clean_boilerplate/app/theme/app_theme.dart';
 import 'package:flutter_clean_boilerplate/features/account/presentation/controllers/account_controller.dart';
 import 'package:flutter_clean_boilerplate/features/account/presentation/controllers/splash_controller.dart';
 import 'package:flutter_clean_boilerplate/features/settings/presentation/controllers/settings_controller.dart';
@@ -39,8 +38,8 @@ class App extends StatelessWidget {
           return MaterialApp.router(
             debugShowCheckedModeBanner: false,
             onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
-            theme: AppTheme.light(),
-            darkTheme: AppTheme.dark(),
+            theme: settings.lightTheme,
+            darkTheme: settings.darkTheme,
             themeMode: settings.themeMode,
             locale: settings.locale,
             supportedLocales: AppLocalizations.supportedLocales,

@@ -102,6 +102,22 @@ class AppLocalizationsId extends AppLocalizations {
   String get settingsLanguageIndonesian => 'Indonesia';
 
   @override
+  String get settingsPrimaryColor => 'Warna utama';
+
+  @override
+  String get settingsPrimaryColorCustom => 'Kustom';
+
+  @override
+  String get settingsPrimaryColorCustomHint =>
+      'Pilih warna favoritmu — warna ini menjadi seed seluruh skema warna.';
+
+  @override
+  String get settingsPrimaryColorChooseTitle => 'Pilih warna kustom';
+
+  @override
+  String get settingsPrimaryColorUseColor => 'Gunakan warna ini';
+
+  @override
   String get validationNameRequired => 'Nama wajib diisi';
 
   @override

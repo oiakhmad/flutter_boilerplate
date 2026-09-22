@@ -102,6 +102,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsLanguageIndonesian => 'Indonesian';
 
   @override
+  String get settingsPrimaryColor => 'Primary color';
+
+  @override
+  String get settingsPrimaryColorCustom => 'Custom';
+
+  @override
+  String get settingsPrimaryColorCustomHint =>
+      'Pick your favorite color — it becomes the seed for the whole color scheme.';
+
+  @override
+  String get settingsPrimaryColorChooseTitle => 'Choose custom color';
+
+  @override
+  String get settingsPrimaryColorUseColor => 'Use this color';
+
+  @override
   String get validationNameRequired => 'Name is required';
 
   @override

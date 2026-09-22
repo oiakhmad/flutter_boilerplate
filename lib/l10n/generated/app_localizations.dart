@@ -278,6 +278,36 @@ abstract class AppLocalizations {
   /// **'Indonesian'**
   String get settingsLanguageIndonesian;
 
+  /// Section title for the primary seed-color picker in Settings
+  ///
+  /// In en, this message translates to:
+  /// **'Primary color'**
+  String get settingsPrimaryColor;
+
+  /// Label for the custom-color option in the primary color picker
+  ///
+  /// In en, this message translates to:
+  /// **'Custom'**
+  String get settingsPrimaryColorCustom;
+
+  /// Helper text under the custom-color option
+  ///
+  /// In en, this message translates to:
+  /// **'Pick your favorite color — it becomes the seed for the whole color scheme.'**
+  String get settingsPrimaryColorCustomHint;
+
+  /// Title of the custom color picker dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Choose custom color'**
+  String get settingsPrimaryColorChooseTitle;
+
+  /// Confirm button in the custom color picker dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Use this color'**
+  String get settingsPrimaryColorUseColor;
+
   /// No description provided for @validationNameRequired.
   ///
   /// In en, this message translates to:

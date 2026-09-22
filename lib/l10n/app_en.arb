@@ -42,6 +42,17 @@
   "settingsLanguageEnglish": "English",
   "settingsLanguageIndonesian": "Indonesian",
 
+  "settingsPrimaryColor": "Primary color",
+  "@settingsPrimaryColor": {"description": "Section title for the primary seed-color picker in Settings"},
+  "settingsPrimaryColorCustom": "Custom",
+  "@settingsPrimaryColorCustom": {"description": "Label for the custom-color option in the primary color picker"},
+  "settingsPrimaryColorCustomHint": "Pick your favorite color — it becomes the seed for the whole color scheme.",
+  "@settingsPrimaryColorCustomHint": {"description": "Helper text under the custom-color option"},
+  "settingsPrimaryColorChooseTitle": "Choose custom color",
+  "@settingsPrimaryColorChooseTitle": {"description": "Title of the custom color picker dialog"},
+  "settingsPrimaryColorUseColor": "Use this color",
+  "@settingsPrimaryColorUseColor": {"description": "Confirm button in the custom color picker dialog"},
+
   "validationNameRequired": "Name is required",
   "validationNameTooShort": "Name must be at least {min} characters",
   "@validationNameTooShort": {

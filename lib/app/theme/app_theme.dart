@@ -2,14 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_clean_boilerplate/app/theme/app_colors.dart';
 import 'package:flutter_clean_boilerplate/app/theme/app_spacing.dart';
 import 'package:flutter_clean_boilerplate/app/theme/app_typography.dart';
+import 'package:flutter_clean_boilerplate/features/settings/domain/entities/primary_color_preference.dart';
 
 /// Composes the app's light and dark [ThemeData] from the design tokens in
-/// [AppColors]/[AppTypography]/[AppSpacing]. This is the single place a new
-/// design token or Material 3 component override should be added.
+/// [AppSeedColors]/[AppTypography]/[AppSpacing]. This is the single place a
+/// new design token or Material 3 component override should be added.
+///
+/// `ColorScheme` is the source of truth: every color in the generated
+/// theme comes from `ColorScheme.fromSeed` (driven by the user's
+/// [PrimaryColorPreference]) — no `primaryColor`/`buttonColor`/`cardColor`
+/// style parallel system exists. Only colors genuinely absent from
+/// `ColorScheme` would justify a `ThemeExtension` (none needed today).
 abstract final class AppTheme {
-  static ThemeData light() => _build(AppColors.light());
+  static ThemeData light(PrimaryColorPreference primaryColor) =>
+      _build(_scheme(primaryColor, Brightness.light));
 
-  static ThemeData dark() => _build(AppColors.dark());
+  static ThemeData dark(PrimaryColorPreference primaryColor) =>
+      _build(_scheme(primaryColor, Brightness.dark));
+
+  static ColorScheme _scheme(
+    PrimaryColorPreference primaryColor,
+    Brightness brightness,
+  ) {
+    return ColorScheme.fromSeed(
+      seedColor: AppSeedColors.resolve(primaryColor),
+      brightness: brightness,
+    );
+  }
 
   static ThemeData _build(ColorScheme scheme) {
     return ThemeData(
