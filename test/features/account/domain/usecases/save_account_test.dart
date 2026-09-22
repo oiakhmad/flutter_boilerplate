@@ -21,6 +21,13 @@ class _FakeAccountRepository implements AccountRepository {
     saved = account;
     return const Result.success(null);
   }
+
+  @override
+  Future<Result<void>> removeAccount() async {
+    if (shouldFail) return const Result.failure(DatabaseFailure('disk full'));
+    saved = null;
+    return const Result.success(null);
+  }
 }
 
 void main() {

@@ -14,6 +14,10 @@ class _ThrowingDataSource implements AccountLocalDataSource {
   @override
   Future<void> saveAccount(AccountModel model) =>
       throw const DatabaseException('disk unavailable');
+
+  @override
+  Future<void> deleteAllLocalData() =>
+      throw const DatabaseException('disk unavailable');
 }
 
 void main() {
@@ -37,6 +41,14 @@ void main() {
     );
 
     final result = await repository.saveAccount(account);
+
+    expect(result.failureOrNull, isA<DatabaseFailure>());
+  });
+
+  test('removeAccount translates DatabaseException into DatabaseFailure', () async {
+    final repository = AccountRepositoryImpl(_ThrowingDataSource());
+
+    final result = await repository.removeAccount();
 
     expect(result.failureOrNull, isA<DatabaseFailure>());
   });

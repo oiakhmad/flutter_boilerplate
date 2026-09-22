@@ -343,6 +343,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Loading…'**
   String get commonLoading;
+
+  /// Title of the remove-account confirmation dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Delete account?'**
+  String get removeAccountTitle;
+
+  /// Warning shown in the remove-account confirmation dialog
+  ///
+  /// In en, this message translates to:
+  /// **'This will permanently delete your account and all local data on this device. This action cannot be undone.'**
+  String get removeAccountMessage;
+
+  /// Label above the confirmation input; {word} is DELETE or HAPUS
+  ///
+  /// In en, this message translates to:
+  /// **'Type {word} to confirm'**
+  String removeAccountConfirmLabel(String word);
+
+  /// Placeholder inside the confirmation input
+  ///
+  /// In en, this message translates to:
+  /// **'Confirmation word'**
+  String get removeAccountConfirmHint;
+
+  /// Confirmation word when the active language is Indonesian
+  ///
+  /// In en, this message translates to:
+  /// **'HAPUS'**
+  String get removeAccountConfirmWordId;
+
+  /// Confirmation word when the active language is English
+  ///
+  /// In en, this message translates to:
+  /// **'DELETE'**
+  String get removeAccountConfirmWordEn;
+
+  /// Destructive confirm button in the remove-account dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Delete account'**
+  String get removeAccountConfirmAction;
+
+  /// Cancel button in the remove-account dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get removeAccountCancel;
+
+  /// Loading state while the local database is being deleted
+  ///
+  /// In en, this message translates to:
+  /// **'Deleting account…'**
+  String get removeAccountDeleting;
+
+  /// Success message after the account is removed
+  ///
+  /// In en, this message translates to:
+  /// **'Account deleted'**
+  String get removeAccountSuccess;
+
+  /// Failure message when account deletion fails
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t delete your account. Please try again.'**
+  String get removeAccountFailure;
+
+  /// Hint shown when the typed confirmation word is wrong
+  ///
+  /// In en, this message translates to:
+  /// **'Input does not match the confirmation word'**
+  String get removeAccountMismatch;
 }
 
 class _AppLocalizationsDelegate

@@ -66,4 +66,41 @@ class LocalDatabase {
     _database = null;
     _opening = null;
   }
+
+  /// Deletes the whole Sembast file (all stores/records) from disk.
+  ///
+  /// Used only by the Remove Account flow: the spec requires wiping the
+  /// entire local database, not just the account record. The connection is
+  /// closed first so no open handle is in use while the file is removed.
+  /// The file-system work is `async` (`await`ed I/O, never blocking the UI
+  /// thread with sync I/O); a dedicated `Isolate` is intentionally not
+  /// used because a Sembast `Database` handle cannot be transferred across
+  /// isolates and async I/O already keeps the UI responsive.
+  ///
+  /// On success the next [instance] access re-creates an empty database
+  /// file lazily. Throws [DatabaseException] on failure so repositories
+  /// can translate it into a [Failure] - no partial cleanup is performed
+  /// by callers when this throws.
+  Future<void> deleteDatabase() async {
+    try {
+      final inFlight = _opening;
+      if (inFlight != null) {
+        try {
+          await inFlight.future;
+        } catch (_) {
+          // Opening failed - still proceed to delete whatever file exists.
+        }
+      }
+      await close();
+      final directory = await getApplicationDocumentsDirectory();
+      final dbPath = p.join(directory.path, fileName);
+      await databaseFactoryIo.deleteDatabase(dbPath);
+      _database = null;
+      _opening = null;
+    } on DatabaseException {
+      rethrow;
+    } catch (error) {
+      throw DatabaseException('Failed to delete local database', error);
+    }
+  }
 }

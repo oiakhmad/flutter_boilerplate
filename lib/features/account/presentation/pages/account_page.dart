@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_clean_boilerplate/app/router/app_router.dart';
 import 'package:flutter_clean_boilerplate/app/theme/app_spacing.dart';
 import 'package:flutter_clean_boilerplate/core/extensions/context_extensions.dart';
 import 'package:flutter_clean_boilerplate/core/widgets/app_avatar.dart';
@@ -6,7 +7,10 @@ import 'package:flutter_clean_boilerplate/core/widgets/empty_state.dart';
 import 'package:flutter_clean_boilerplate/core/widgets/error_view.dart';
 import 'package:flutter_clean_boilerplate/core/widgets/loading_indicator.dart';
 import 'package:flutter_clean_boilerplate/features/account/presentation/controllers/account_controller.dart';
+import 'package:flutter_clean_boilerplate/features/account/presentation/controllers/splash_controller.dart';
 import 'package:flutter_clean_boilerplate/features/account/presentation/pages/edit_account_page.dart';
+import 'package:flutter_clean_boilerplate/features/account/presentation/widgets/remove_account_dialog.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -33,6 +37,28 @@ class _AccountPageState extends State<AccountPage> {
     );
   }
 
+  /// Opens the Remove Account confirmation dialog and, only on confirmed
+  /// success, clears the first-run session and navigates to onboarding.
+  ///
+  /// The dialog itself performs the Sembast deletion via
+  /// `AccountController.removeAccount()`. This handler only runs the
+  /// post-success sequence: `SplashController.clearSession()` (so the
+  /// router gate re-evaluates to "no account") followed by
+  /// `go(/splash)`. On failure nothing is cleared and the dialog stays
+  /// open with a localized error.
+  Future<void> _handleRemoveAccount() async {
+    context.read<AccountController>().resetRemoveStatus();
+    final confirmed = await RemoveAccountDialog.show(context);
+    if (!confirmed || !mounted) return;
+
+    context.read<SplashController>().clearSession();
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(context.l10n.removeAccountSuccess)),
+    );
+    context.go(AppRoutes.splash);
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
@@ -57,6 +83,7 @@ class _AccountPageState extends State<AccountPage> {
           ),
         AccountStatus.loaded => _ProfileView(
             onEdit: _openEdit,
+            onRemove: _handleRemoveAccount,
           ),
       },
     );
@@ -64,9 +91,10 @@ class _AccountPageState extends State<AccountPage> {
 }
 
 class _ProfileView extends StatelessWidget {
-  const _ProfileView({required this.onEdit});
+  const _ProfileView({required this.onEdit, required this.onRemove});
 
   final VoidCallback onEdit;
+  final VoidCallback onRemove;
 
   @override
   Widget build(BuildContext context) {
@@ -103,6 +131,15 @@ class _ProfileView extends StatelessWidget {
           onPressed: onEdit,
           icon: const Icon(Icons.edit_outlined),
           label: Text(l10n.accountEditProfile),
+        ),
+        const SizedBox(height: AppSpacing.sm),
+        OutlinedButton.icon(
+          onPressed: onRemove,
+          icon: Icon(Icons.delete_outline, color: context.colors.error),
+          label: Text(
+            l10n.removeAccountConfirmAction,
+            style: TextStyle(color: context.colors.error),
+          ),
         ),
       ],
     );

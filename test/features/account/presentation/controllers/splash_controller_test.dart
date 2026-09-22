@@ -44,14 +44,16 @@ class _TempLocalDatabase extends LocalDatabase {
 /// Builds the account chain exactly like `app/di/injector.dart` does, over
 /// the given database connection.
 AccountRepository _repositoryOver(LocalDatabase database) {
+  final accountDatabase = database;
   return AccountRepositoryImpl(
     AccountLocalDataSource(
       DatabaseStore<AccountModel>(
-        database: database,
+        database: accountDatabase,
         storeName: StorageKeys.accountStore,
         fromMap: AccountModel.fromMap,
         toMap: (model) => model.toMap(),
       ),
+      accountDatabase,
     ),
   );
 }

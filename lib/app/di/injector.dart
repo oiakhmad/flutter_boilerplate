@@ -8,6 +8,7 @@ import 'package:flutter_clean_boilerplate/features/account/data/repositories/acc
 import 'package:flutter_clean_boilerplate/features/account/domain/repositories/account_repository.dart';
 import 'package:flutter_clean_boilerplate/features/account/domain/usecases/create_account.dart';
 import 'package:flutter_clean_boilerplate/features/account/domain/usecases/get_account.dart';
+import 'package:flutter_clean_boilerplate/features/account/domain/usecases/remove_account.dart';
 import 'package:flutter_clean_boilerplate/features/account/domain/usecases/save_account.dart';
 import 'package:flutter_clean_boilerplate/features/account/presentation/controllers/account_controller.dart';
 import 'package:flutter_clean_boilerplate/features/account/presentation/controllers/splash_controller.dart';
@@ -52,7 +53,10 @@ Future<void> setupDependencies() async {
     ),
   );
   getIt.registerLazySingleton<AccountLocalDataSource>(
-    () => AccountLocalDataSource(getIt<DatabaseStore<AccountModel>>()),
+    () => AccountLocalDataSource(
+      getIt<DatabaseStore<AccountModel>>(),
+      getIt<LocalDatabase>(),
+    ),
   );
   getIt.registerLazySingleton<AccountRepository>(
     () => AccountRepositoryImpl(getIt<AccountLocalDataSource>()),
@@ -67,10 +71,14 @@ Future<void> setupDependencies() async {
   getIt.registerLazySingleton<CreateAccountUseCase>(
     () => CreateAccountUseCase(getIt<AccountRepository>()),
   );
+  getIt.registerLazySingleton<RemoveAccountUseCase>(
+    () => RemoveAccountUseCase(getIt<AccountRepository>()),
+  );
   getIt.registerFactory<AccountController>(
     () => AccountController(
       getAccount: getIt<GetAccountUseCase>(),
       saveAccount: getIt<SaveAccountUseCase>(),
+      removeAccount: getIt<RemoveAccountUseCase>(),
     ),
   );
 

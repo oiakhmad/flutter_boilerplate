@@ -39,4 +39,16 @@ class AccountRepositoryImpl implements AccountRepository {
       return Result.failure(UnexpectedFailure(error.toString()));
     }
   }
+
+  @override
+  Future<Result<void>> removeAccount() async {
+    try {
+      await _dataSource.deleteAllLocalData();
+      return const Result.success(null);
+    } on DatabaseException catch (error) {
+      return Result.failure(DatabaseFailure(error.message));
+    } catch (error) {
+      return Result.failure(UnexpectedFailure(error.toString()));
+    }
+  }
 }

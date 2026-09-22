@@ -10,4 +10,10 @@ abstract interface class AccountRepository {
   Future<Result<Account?>> getAccount();
 
   Future<Result<void>> saveAccount(Account account);
+
+  /// Permanently removes the account and all local application data by
+  /// deleting the whole Sembast database file. On failure no partial
+  /// cleanup is performed - the returned [Result] carries the [Failure]
+  /// and all state is left untouched.
+  Future<Result<void>> removeAccount();
 }

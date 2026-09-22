@@ -49,5 +49,33 @@
   "actionRetry": "Coba lagi",
   "actionOk": "OK",
 
-  "commonLoading": "Memuat…"
+  "commonLoading": "Memuat…",
+
+  "removeAccountTitle": "Hapus akun?",
+  "@removeAccountTitle": {"description": "Judul dialog konfirmasi hapus akun"},
+  "removeAccountMessage": "Tindakan ini akan menghapus akun dan seluruh data lokal di perangkat ini secara permanen. Tindakan ini tidak dapat dibatalkan.",
+  "@removeAccountMessage": {"description": "Peringatan pada dialog konfirmasi hapus akun"},
+  "removeAccountConfirmLabel": "Ketik {word} untuk konfirmasi",
+  "@removeAccountConfirmLabel": {
+    "description": "Label di atas input konfirmasi; {word} adalah HAPUS atau DELETE",
+    "placeholders": {"word": {"type": "String"}}
+  },
+  "removeAccountConfirmHint": "Kata konfirmasi",
+  "@removeAccountConfirmHint": {"description": "Placeholder di dalam input konfirmasi"},
+  "removeAccountConfirmWordId": "HAPUS",
+  "@removeAccountConfirmWordId": {"description": "Kata konfirmasi saat bahasa aktif Indonesia"},
+  "removeAccountConfirmWordEn": "DELETE",
+  "@removeAccountConfirmWordEn": {"description": "Kata konfirmasi saat bahasa aktif Inggris"},
+  "removeAccountConfirmAction": "Hapus akun",
+  "@removeAccountConfirmAction": {"description": "Tombol hapus pada dialog konfirmasi hapus akun"},
+  "removeAccountCancel": "Batal",
+  "@removeAccountCancel": {"description": "Tombol batal pada dialog hapus akun"},
+  "removeAccountDeleting": "Menghapus akun…",
+  "@removeAccountDeleting": {"description": "Status loading saat database lokal dihapus"},
+  "removeAccountSuccess": "Akun berhasil dihapus",
+  "@removeAccountSuccess": {"description": "Pesan sukses setelah akun dihapus"},
+  "removeAccountFailure": "Akun gagal dihapus. Silakan coba lagi.",
+  "@removeAccountFailure": {"description": "Pesan gagal saat penghapusan akun gagal"},
+  "removeAccountMismatch": "Input tidak sesuai dengan kata konfirmasi",
+  "@removeAccountMismatch": {"description": "Petunjuk saat kata konfirmasi yang diketik salah"}
 }

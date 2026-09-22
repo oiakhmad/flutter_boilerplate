@@ -136,4 +136,44 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get commonLoading => 'Memuat…';
+
+  @override
+  String get removeAccountTitle => 'Hapus akun?';
+
+  @override
+  String get removeAccountMessage =>
+      'Tindakan ini akan menghapus akun dan seluruh data lokal di perangkat ini secara permanen. Tindakan ini tidak dapat dibatalkan.';
+
+  @override
+  String removeAccountConfirmLabel(String word) {
+    return 'Ketik $word untuk konfirmasi';
+  }
+
+  @override
+  String get removeAccountConfirmHint => 'Kata konfirmasi';
+
+  @override
+  String get removeAccountConfirmWordId => 'HAPUS';
+
+  @override
+  String get removeAccountConfirmWordEn => 'DELETE';
+
+  @override
+  String get removeAccountConfirmAction => 'Hapus akun';
+
+  @override
+  String get removeAccountCancel => 'Batal';
+
+  @override
+  String get removeAccountDeleting => 'Menghapus akun…';
+
+  @override
+  String get removeAccountSuccess => 'Akun berhasil dihapus';
+
+  @override
+  String get removeAccountFailure => 'Akun gagal dihapus. Silakan coba lagi.';
+
+  @override
+  String get removeAccountMismatch =>
+      'Input tidak sesuai dengan kata konfirmasi';
 }

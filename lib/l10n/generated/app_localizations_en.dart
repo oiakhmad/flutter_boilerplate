@@ -136,4 +136,45 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get commonLoading => 'Loading…';
+
+  @override
+  String get removeAccountTitle => 'Delete account?';
+
+  @override
+  String get removeAccountMessage =>
+      'This will permanently delete your account and all local data on this device. This action cannot be undone.';
+
+  @override
+  String removeAccountConfirmLabel(String word) {
+    return 'Type $word to confirm';
+  }
+
+  @override
+  String get removeAccountConfirmHint => 'Confirmation word';
+
+  @override
+  String get removeAccountConfirmWordId => 'HAPUS';
+
+  @override
+  String get removeAccountConfirmWordEn => 'DELETE';
+
+  @override
+  String get removeAccountConfirmAction => 'Delete account';
+
+  @override
+  String get removeAccountCancel => 'Cancel';
+
+  @override
+  String get removeAccountDeleting => 'Deleting account…';
+
+  @override
+  String get removeAccountSuccess => 'Account deleted';
+
+  @override
+  String get removeAccountFailure =>
+      'We couldn\'t delete your account. Please try again.';
+
+  @override
+  String get removeAccountMismatch =>
+      'Input does not match the confirmation word';
 }

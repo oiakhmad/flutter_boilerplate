@@ -127,4 +127,19 @@ class SplashController extends ChangeNotifier {
       },
     );
   }
+
+  /// Clears the in-memory session after a successful Remove Account.
+  ///
+  /// Called by the presentation layer only after the Sembast database file
+  /// has been deleted, so the first-run gate re-evaluates to "no account"
+  /// and the router redirects back to onboarding (`/splash`). On a failed
+  /// deletion this is never called, so the still-valid session is kept.
+  void clearSession() {
+    account = null;
+    failure = null;
+    nameFieldErrors = const {};
+    isSaving = false;
+    status = SplashStatus.needsName;
+    notifyListeners();
+  }
 }

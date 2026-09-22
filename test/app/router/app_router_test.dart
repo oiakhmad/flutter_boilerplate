@@ -24,6 +24,12 @@ class _InMemoryAccountRepository implements AccountRepository {
     stored = account;
     return const Result.success(null);
   }
+
+  @override
+  Future<Result<void>> removeAccount() async {
+    stored = null;
+    return const Result.success(null);
+  }
 }
 
 void main() {

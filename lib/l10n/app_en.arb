@@ -57,5 +57,33 @@
   "actionRetry": "Retry",
   "actionOk": "OK",
 
-  "commonLoading": "Loading…"
+  "commonLoading": "Loading…",
+
+  "removeAccountTitle": "Delete account?",
+  "@removeAccountTitle": {"description": "Title of the remove-account confirmation dialog"},
+  "removeAccountMessage": "This will permanently delete your account and all local data on this device. This action cannot be undone.",
+  "@removeAccountMessage": {"description": "Warning shown in the remove-account confirmation dialog"},
+  "removeAccountConfirmLabel": "Type {word} to confirm",
+  "@removeAccountConfirmLabel": {
+    "description": "Label above the confirmation input; {word} is DELETE or HAPUS",
+    "placeholders": {"word": {"type": "String"}}
+  },
+  "removeAccountConfirmHint": "Confirmation word",
+  "@removeAccountConfirmHint": {"description": "Placeholder inside the confirmation input"},
+  "removeAccountConfirmWordId": "HAPUS",
+  "@removeAccountConfirmWordId": {"description": "Confirmation word when the active language is Indonesian"},
+  "removeAccountConfirmWordEn": "DELETE",
+  "@removeAccountConfirmWordEn": {"description": "Confirmation word when the active language is English"},
+  "removeAccountConfirmAction": "Delete account",
+  "@removeAccountConfirmAction": {"description": "Destructive confirm button in the remove-account dialog"},
+  "removeAccountCancel": "Cancel",
+  "@removeAccountCancel": {"description": "Cancel button in the remove-account dialog"},
+  "removeAccountDeleting": "Deleting account…",
+  "@removeAccountDeleting": {"description": "Loading state while the local database is being deleted"},
+  "removeAccountSuccess": "Account deleted",
+  "@removeAccountSuccess": {"description": "Success message after the account is removed"},
+  "removeAccountFailure": "We couldn't delete your account. Please try again.",
+  "@removeAccountFailure": {"description": "Failure message when account deletion fails"},
+  "removeAccountMismatch": "Input does not match the confirmation word",
+  "@removeAccountMismatch": {"description": "Hint shown when the typed confirmation word is wrong"}
 }

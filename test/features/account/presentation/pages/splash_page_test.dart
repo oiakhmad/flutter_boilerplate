@@ -22,6 +22,12 @@ class _FakeAccountRepository implements AccountRepository {
     stored = account;
     return const Result.success(null);
   }
+
+  @override
+  Future<Result<void>> removeAccount() async {
+    stored = null;
+    return const Result.success(null);
+  }
 }
 
 /// Builds the splash screen with the same wiring `main()` performs: the
@@ -143,5 +149,9 @@ class _FailingAccountRepository implements AccountRepository {
 
   @override
   Future<Result<void>> saveAccount(Account account) async =>
+      const Result.failure(DatabaseFailure('storage unavailable'));
+
+  @override
+  Future<Result<void>> removeAccount() async =>
       const Result.failure(DatabaseFailure('storage unavailable'));
 }

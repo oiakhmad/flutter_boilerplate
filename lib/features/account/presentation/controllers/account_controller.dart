@@ -2,11 +2,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_clean_boilerplate/core/error/failure.dart';
 import 'package:flutter_clean_boilerplate/features/account/domain/entities/account.dart';
 import 'package:flutter_clean_boilerplate/features/account/domain/usecases/get_account.dart';
+import 'package:flutter_clean_boilerplate/features/account/domain/usecases/remove_account.dart';
 import 'package:flutter_clean_boilerplate/features/account/domain/usecases/save_account.dart';
 
 enum AccountStatus { initial, loading, loaded, empty, error }
 
 enum SaveStatus { idle, saving, success, error }
+
+enum RemoveAccountStatus { idle, removing, success, error }
 
 /// Owns Account-feature UI state and delegates every business decision to
 /// use cases. Widgets read state via [ChangeNotifier]/`context.watch`; they
@@ -15,11 +18,14 @@ class AccountController extends ChangeNotifier {
   AccountController({
     required GetAccountUseCase getAccount,
     required SaveAccountUseCase saveAccount,
+    required RemoveAccountUseCase removeAccount,
   })  : _getAccount = getAccount,
-        _saveAccount = saveAccount;
+        _saveAccount = saveAccount,
+        _removeAccount = removeAccount;
 
   final GetAccountUseCase _getAccount;
   final SaveAccountUseCase _saveAccount;
+  final RemoveAccountUseCase _removeAccount;
 
   AccountStatus status = AccountStatus.initial;
   Account? account;
@@ -28,6 +34,9 @@ class AccountController extends ChangeNotifier {
   SaveStatus saveStatus = SaveStatus.idle;
   Map<String, String> saveFieldErrors = const {};
   Failure? saveFailure;
+
+  RemoveAccountStatus removeStatus = RemoveAccountStatus.idle;
+  Failure? removeFailure;
 
   Future<void> load() async {
     status = AccountStatus.loading;
@@ -86,5 +95,44 @@ class AccountController extends ChangeNotifier {
     saveStatus = SaveStatus.idle;
     saveFieldErrors = const {};
     saveFailure = null;
+  }
+
+  /// Removes the account and all local application data (whole Sembast
+  /// file, deleted asynchronously so the UI never blocks).
+  ///
+  /// Returns `true` only when the database file was deleted. On failure
+  /// nothing is cleaned up: [account]/[status] are kept as-is (state that
+  /// is still valid), and the failure is exposed via [removeFailure] for
+  /// the dialog to render with localized copy. Callers must clear the
+  /// session/first-run gate ([SplashController.clearSession]) only after
+  /// this returns `true`.
+  Future<bool> removeAccount() async {
+    removeStatus = RemoveAccountStatus.removing;
+    removeFailure = null;
+    notifyListeners();
+
+    final result = await _removeAccount();
+
+    return result.fold(
+      (f) {
+        removeStatus = RemoveAccountStatus.error;
+        removeFailure = f;
+        notifyListeners();
+        return false;
+      },
+      (_) {
+        account = null;
+        status = AccountStatus.empty;
+        failure = null;
+        removeStatus = RemoveAccountStatus.success;
+        notifyListeners();
+        return true;
+      },
+    );
+  }
+
+  void resetRemoveStatus() {
+    removeStatus = RemoveAccountStatus.idle;
+    removeFailure = null;
   }
 }
