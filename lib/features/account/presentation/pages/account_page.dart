@@ -3,6 +3,7 @@ import 'package:flutter_clean_boilerplate/app/router/app_router.dart';
 import 'package:flutter_clean_boilerplate/app/theme/app_spacing.dart';
 import 'package:flutter_clean_boilerplate/core/extensions/context_extensions.dart';
 import 'package:flutter_clean_boilerplate/core/widgets/app_avatar.dart';
+import 'package:flutter_clean_boilerplate/core/widgets/app_message.dart';
 import 'package:flutter_clean_boilerplate/core/widgets/empty_state.dart';
 import 'package:flutter_clean_boilerplate/core/widgets/error_view.dart';
 import 'package:flutter_clean_boilerplate/core/widgets/loading_indicator.dart';
@@ -53,9 +54,7 @@ class _AccountPageState extends State<AccountPage> {
 
     context.read<SplashController>().clearSession();
     if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(context.l10n.removeAccountSuccess)),
-    );
+    showSuccessMessage(context, message: context.l10n.removeAccountSuccess);
     context.go(AppRoutes.splash);
   }
 

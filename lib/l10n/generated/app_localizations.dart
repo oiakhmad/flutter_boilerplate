@@ -188,11 +188,17 @@ abstract class AppLocalizations {
   /// **'Cancel'**
   String get accountCancel;
 
-  /// No description provided for @accountUpdateSuccess.
+  /// Success message after the profile is updated
   ///
   /// In en, this message translates to:
   /// **'Profile updated'**
   String get accountUpdateSuccess;
+
+  /// Error message when updating the profile fails
+  ///
+  /// In en, this message translates to:
+  /// **'Profile couldn\'t be updated. Please try again.'**
+  String get accountUpdateFailure;
 
   /// No description provided for @accountEmptyTitle.
   ///

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_clean_boilerplate/app/theme/app_spacing.dart';
 import 'package:flutter_clean_boilerplate/core/extensions/context_extensions.dart';
 import 'package:flutter_clean_boilerplate/core/widgets/app_avatar.dart';
+import 'package:flutter_clean_boilerplate/core/widgets/app_message.dart';
 import 'package:flutter_clean_boilerplate/core/widgets/app_text_field.dart';
 import 'package:flutter_clean_boilerplate/features/account/presentation/controllers/account_controller.dart';
 import 'package:flutter_clean_boilerplate/features/account/presentation/widgets/field_error_localizer.dart';
@@ -43,10 +44,15 @@ class _EditAccountPageState extends State<EditAccountPage> {
     if (!mounted) return;
 
     if (success) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(context.l10n.accountUpdateSuccess)),
-      );
+      showSuccessMessage(context, message: context.l10n.accountUpdateSuccess);
       Navigator.of(context).pop();
+    } else {
+      // Validation failures are already shown inline per field; only
+      // storage/unknown failures reach the user as an error message.
+      final hasFieldErrors = controller.saveFieldErrors.isNotEmpty;
+      if (!hasFieldErrors) {
+        showErrorMessage(context, message: context.l10n.accountUpdateFailure);
+      }
     }
   }
 

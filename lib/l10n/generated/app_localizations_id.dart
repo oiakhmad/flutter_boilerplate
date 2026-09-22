@@ -60,6 +60,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get accountUpdateSuccess => 'Profil berhasil diperbarui';
 
   @override
+  String get accountUpdateFailure =>
+      'Profil gagal diperbarui. Silakan coba lagi.';
+
+  @override
   String get accountEmptyTitle => 'Belum ada profil';
 
   @override

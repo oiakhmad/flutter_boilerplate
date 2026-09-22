@@ -60,6 +60,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get accountUpdateSuccess => 'Profile updated';
 
   @override
+  String get accountUpdateFailure =>
+      'Profile couldn\'t be updated. Please try again.';
+
+  @override
   String get accountEmptyTitle => 'No profile yet';
 
   @override
