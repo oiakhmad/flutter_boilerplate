@@ -4,9 +4,25 @@ A production-oriented Flutter starting point built on **Clean Architecture**
 and a **feature-first** folder structure, with **Sembast** for local
 persistence, **provider** for state, **get_it** for dependency injection,
 **go_router** for navigation, and full **English/Indonesian** localization.
-It ships with three features — Home, Account, Settings — as a reference
-implementation, not as the point of the project. The point is the
-foundation underneath them.
+It ships with four features — Home, Account, Settings and App Lock — as
+reference implementations, not as the point of the project. The point is
+the foundation underneath them.
+
+## Features
+
+Every feature lives self-contained under `lib/features/<name>/` and is
+wired through the single composition root (`app/di/injector.dart`):
+
+| Feature | Path | What it includes |
+|---|---|---|
+| **Home** | `features/home` | Bottom-nav landing tab — intentionally presentation-only (no state to persist yet). |
+| **Account** | `features/account` | Full slice: first-run Splash onboarding (the account is created once), profile view, edit profile, and remove account (wipes the local database). |
+| **Settings** | `features/settings` | Full slice: theme (Light/Dark/System), primary color (presets + custom picker), and language (EN/ID) — all persisted to Sembast and applied live without restart. |
+| **App Lock** | `features/app_lock` | Full slice powering **Keamanan Aplikasi**: 6-digit PIN App Lock with create/confirm and change-PIN flows, a router-gated Lock Screen (cold start *and* after backgrounding), an attempt limit with 30s lockout notified via an `AppMessage` warning, and a recovery security question. Secrets live in `flutter_secure_storage`; only non-sensitive config in Sembast. Opened from Settings → Keamanan Aplikasi. |
+
+Home, Account and Settings are **reference implementations** of the
+architecture; App Lock additionally demonstrates secure storage and the
+lifecycle/router gate (documented in `.ai/features-app-lock.md`).
 
 > ⚠️ This project was generated without a Flutter SDK / pub.dev access in
 > the generating environment, so it has **not** been run through
@@ -164,6 +180,7 @@ lib/
 ├── features/
 │   ├── home/        # presentation only — no state to persist yet
 │   ├── account/     # full data/domain/presentation slice (incl. first-run Splash)
+│   ├── app_lock/    # full slice — App Lock (PIN 6-Digit) / Keamanan Aplikasi
 │   └── settings/    # full data/domain/presentation slice
 └── main.dart
 ```
@@ -196,7 +213,8 @@ Widget/Controller → UseCase → Repository (contract, in domain)
 ## State management
 
 `provider` + `ChangeNotifier` controllers, one per feature
-(`AccountController`, `SettingsController`). Controllers:
+(`AccountController`, `SettingsController`, `AppLockController`).
+Controllers:
 
 * hold UI state (`status` enums, loaded data, field errors),
 * call use cases — never a repository or data source directly,
