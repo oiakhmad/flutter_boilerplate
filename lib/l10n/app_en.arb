@@ -61,8 +61,25 @@
   "@validationNameTooShort": {
     "placeholders": {"min": {"type": "int"}}
   },
+  "validationNameInvalid": "Name contains characters that aren't allowed",
+  "@validationNameInvalid": {
+    "description": "Shown when a name contains unsupported characters"
+  },
+  "validationNameTooLong": "Name must be at most {max} characters",
+  "@validationNameTooLong": {
+    "description": "Shown when a name exceeds the account field limit",
+    "placeholders": {"max": {"type": "int"}}
+  },
   "validationEmailRequired": "Email is required",
   "validationEmailInvalid": "Enter a valid email address",
+  "validationTextInvalidCharacter": "Text contains characters that aren't allowed",
+  "@validationTextInvalidCharacter": {
+    "description": "Shown when text contains unsupported control characters"
+  },
+  "validationTextTooLong": "Text is too long",
+  "@validationTextTooLong": {
+    "description": "Shown when text exceeds its field limit"
+  },
 
   "errorGenericTitle": "Something went wrong",
   "errorDatabase": "We couldn't reach local storage. Please try again.",

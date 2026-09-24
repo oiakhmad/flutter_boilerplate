@@ -80,6 +80,16 @@ void main() {
     expect(repository.saved, account);
   });
 
+  test('accepts a valid Unicode name with business punctuation', () async {
+    final result = await useCase(
+      const CreateAccountParams(name: '  José  PT. Maju Jaya  '),
+      existing: null,
+    );
+
+    expect(result.isSuccess, isTrue);
+    expect(result.valueOrNull?.name, 'José PT. Maju Jaya');
+  });
+
   test('never creates a second account when one already exists', () async {
     final existing = Account(
       id: 'current_account',

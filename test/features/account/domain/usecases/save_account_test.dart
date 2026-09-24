@@ -61,6 +61,50 @@ void main() {
     expect(failure.fieldErrors['email'], 'validationEmailInvalid');
   });
 
+  test('rejects unsupported name characters without touching the repository',
+      () async {
+    final result = await useCase(
+      const SaveAccountParams(
+        name: '<script>alert(1)</script>',
+        email: 'ada@example.com',
+      ),
+      existing: null,
+    );
+
+    final failure = result.failureOrNull as ValidationFailure;
+    expect(failure.fieldErrors['name'], 'validationNameInvalid');
+    expect(repository.saved, isNull);
+  });
+
+  test('accepts Unicode names and email punctuation without corrupting them',
+      () async {
+    final result = await useCase(
+      const SaveAccountParams(
+        name: "  O'Connor  ",
+        email: ' user+tag@example.com ',
+      ),
+      existing: null,
+    );
+
+    final account = result.valueOrNull!;
+    expect(account.name, "O'Connor");
+    expect(account.email, 'user+tag@example.com');
+  });
+
+  test('rejects a name longer than the account limit', () async {
+    final result = await useCase(
+      SaveAccountParams(
+        name: List.filled(61, 'a').join(),
+        email: 'ada@example.com',
+      ),
+      existing: null,
+    );
+
+    final failure = result.failureOrNull as ValidationFailure;
+    expect(failure.fieldErrors['name'], 'validationNameTooLong');
+    expect(repository.saved, isNull);
+  });
+
   test('creates a new account with a fresh createdAt/updatedAt', () async {
     final result = await useCase(
       const SaveAccountParams(name: 'Ada Lovelace', email: 'ada@example.com'),

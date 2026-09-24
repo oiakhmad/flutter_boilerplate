@@ -53,8 +53,25 @@
 
   "validationNameRequired": "Nama wajib diisi",
   "validationNameTooShort": "Nama minimal {min} karakter",
+  "validationNameInvalid": "Nama mengandung karakter yang tidak diperbolehkan",
+  "@validationNameInvalid": {
+    "description": "Ditampilkan ketika nama mengandung karakter yang tidak didukung"
+  },
+  "validationNameTooLong": "Nama maksimal {max} karakter",
+  "@validationNameTooLong": {
+    "description": "Ditampilkan ketika nama melebihi batas panjang field akun",
+    "placeholders": {"max": {"type": "int"}}
+  },
   "validationEmailRequired": "Email wajib diisi",
   "validationEmailInvalid": "Masukkan alamat email yang valid",
+  "validationTextInvalidCharacter": "Teks mengandung karakter yang tidak diperbolehkan",
+  "@validationTextInvalidCharacter": {
+    "description": "Ditampilkan ketika teks mengandung karakter kontrol yang tidak didukung"
+  },
+  "validationTextTooLong": "Teks terlalu panjang",
+  "@validationTextTooLong": {
+    "description": "Ditampilkan ketika teks melebihi batas panjang field"
+  },
 
   "errorGenericTitle": "Terjadi kesalahan",
   "errorDatabase": "Tidak dapat mengakses penyimpanan lokal. Silakan coba lagi.",

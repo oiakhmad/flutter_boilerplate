@@ -130,10 +130,26 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
+  String get validationNameInvalid =>
+      'Nama mengandung karakter yang tidak diperbolehkan';
+
+  @override
+  String validationNameTooLong(int max) {
+    return 'Nama maksimal $max karakter';
+  }
+
+  @override
   String get validationEmailRequired => 'Email wajib diisi';
 
   @override
   String get validationEmailInvalid => 'Masukkan alamat email yang valid';
+
+  @override
+  String get validationTextInvalidCharacter =>
+      'Teks mengandung karakter yang tidak diperbolehkan';
+
+  @override
+  String get validationTextTooLong => 'Teks terlalu panjang';
 
   @override
   String get errorGenericTitle => 'Terjadi kesalahan';

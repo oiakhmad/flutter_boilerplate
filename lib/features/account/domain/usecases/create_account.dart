@@ -41,15 +41,21 @@ class CreateAccountUseCase {
     // Already onboarded: report success without touching storage.
     if (existing != null) return Result.success(existing);
 
-    final fieldErrors = _validate(params);
-    if (fieldErrors.isNotEmpty) {
-      return Result.failure(ValidationFailure(fieldErrors));
+    final nameResult = Validators.validateName(
+      params.name,
+      minLength: AppConstants.nameMinLength,
+      maxLength: AppConstants.nameMaxLength,
+    );
+    if (!nameResult.isValid) {
+      return Result.failure(
+        ValidationFailure({'name': nameResult.errorCode!}),
+      );
     }
 
     final now = DateTime.now();
     final account = Account(
       id: StorageKeys.currentAccountId,
-      name: params.name.trim(),
+      name: nameResult.normalizedValue!,
       // No email is collected yet; the Account tab lets the user add one.
       email: '',
       createdAt: now,
@@ -61,18 +67,5 @@ class CreateAccountUseCase {
       (failure) => Result.failure(failure),
       (_) => Result.success(account),
     );
-  }
-
-  Map<String, String> _validate(CreateAccountParams params) {
-    final errors = <String, String>{};
-
-    if (!Validators.isNotBlank(params.name)) {
-      errors['name'] = 'validationNameRequired';
-    } else if (!Validators.hasMinLength(
-        params.name, AppConstants.nameMinLength)) {
-      errors['name'] = 'validationNameTooShort';
-    }
-
-    return errors;
   }
 }

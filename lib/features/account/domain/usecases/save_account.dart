@@ -35,7 +35,20 @@ class SaveAccountUseCase {
     SaveAccountParams params, {
     required Account? existing,
   }) async {
-    final fieldErrors = _validate(params);
+    final nameResult = Validators.validateName(
+      params.name,
+      minLength: AppConstants.nameMinLength,
+      maxLength: AppConstants.nameMaxLength,
+    );
+    final emailResult = Validators.validateEmail(params.email);
+    final fieldErrors = <String, String>{};
+
+    if (!nameResult.isValid) {
+      fieldErrors['name'] = nameResult.errorCode!;
+    }
+    if (!emailResult.isValid) {
+      fieldErrors['email'] = emailResult.errorCode!;
+    }
     if (fieldErrors.isNotEmpty) {
       return Result.failure(ValidationFailure(fieldErrors));
     }
@@ -43,8 +56,8 @@ class SaveAccountUseCase {
     final now = DateTime.now();
     final account = Account(
       id: existing?.id ?? StorageKeys.currentAccountId,
-      name: params.name.trim(),
-      email: params.email.trim(),
+      name: nameResult.normalizedValue!,
+      email: emailResult.normalizedValue!,
       avatarPath: params.avatarPath ?? existing?.avatarPath,
       createdAt: existing?.createdAt ?? now,
       updatedAt: now,
@@ -55,23 +68,5 @@ class SaveAccountUseCase {
       (failure) => Result.failure(failure),
       (_) => Result.success(account),
     );
-  }
-
-  Map<String, String> _validate(SaveAccountParams params) {
-    final errors = <String, String>{};
-
-    if (!Validators.isNotBlank(params.name)) {
-      errors['name'] = 'validationNameRequired';
-    } else if (!Validators.hasMinLength(params.name, AppConstants.nameMinLength)) {
-      errors['name'] = 'validationNameTooShort';
-    }
-
-    if (!Validators.isNotBlank(params.email)) {
-      errors['email'] = 'validationEmailRequired';
-    } else if (!Validators.isValidEmail(params.email)) {
-      errors['email'] = 'validationEmailInvalid';
-    }
-
-    return errors;
   }
 }

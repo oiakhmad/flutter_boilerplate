@@ -13,8 +13,13 @@ String? localizeFieldError(BuildContext context, String? key) {
     'validationNameRequired' => l10n.validationNameRequired,
     'validationNameTooShort' =>
       l10n.validationNameTooShort(AppConstants.nameMinLength),
+    'validationNameInvalid' => l10n.validationNameInvalid,
+    'validationNameTooLong' =>
+      l10n.validationNameTooLong(AppConstants.nameMaxLength),
     'validationEmailRequired' => l10n.validationEmailRequired,
     'validationEmailInvalid' => l10n.validationEmailInvalid,
+    'validationTextInvalidCharacter' => l10n.validationTextInvalidCharacter,
+    'validationTextTooLong' => l10n.validationTextTooLong,
     _ => null,
   };
 }

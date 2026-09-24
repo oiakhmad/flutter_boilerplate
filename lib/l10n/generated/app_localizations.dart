@@ -326,6 +326,18 @@ abstract class AppLocalizations {
   /// **'Name must be at least {min} characters'**
   String validationNameTooShort(int min);
 
+  /// Shown when a name contains unsupported characters
+  ///
+  /// In en, this message translates to:
+  /// **'Name contains characters that aren\'t allowed'**
+  String get validationNameInvalid;
+
+  /// Shown when a name exceeds the account field limit
+  ///
+  /// In en, this message translates to:
+  /// **'Name must be at most {max} characters'**
+  String validationNameTooLong(int max);
+
   /// No description provided for @validationEmailRequired.
   ///
   /// In en, this message translates to:
@@ -337,6 +349,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Enter a valid email address'**
   String get validationEmailInvalid;
+
+  /// Shown when text contains unsupported control characters
+  ///
+  /// In en, this message translates to:
+  /// **'Text contains characters that aren\'t allowed'**
+  String get validationTextInvalidCharacter;
+
+  /// Shown when text exceeds its field limit
+  ///
+  /// In en, this message translates to:
+  /// **'Text is too long'**
+  String get validationTextTooLong;
 
   /// No description provided for @errorGenericTitle.
   ///

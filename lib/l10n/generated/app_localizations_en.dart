@@ -130,10 +130,26 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get validationNameInvalid =>
+      'Name contains characters that aren\'t allowed';
+
+  @override
+  String validationNameTooLong(int max) {
+    return 'Name must be at most $max characters';
+  }
+
+  @override
   String get validationEmailRequired => 'Email is required';
 
   @override
   String get validationEmailInvalid => 'Enter a valid email address';
+
+  @override
+  String get validationTextInvalidCharacter =>
+      'Text contains characters that aren\'t allowed';
+
+  @override
+  String get validationTextTooLong => 'Text is too long';
 
   @override
   String get errorGenericTitle => 'Something went wrong';
